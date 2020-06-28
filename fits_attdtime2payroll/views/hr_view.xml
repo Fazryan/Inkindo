@@ -1,0 +1,58 @@
+<openerp>
+    <data>
+        
+    	<!--record id="view_employee_form_inherit_attendance" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.attendance</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="address_home_id" position="after">
+                      <field name="kehadiran"/>
+                      <field name="lbh_awal"/>
+                      <field name="terlambat"/>
+                      <field name="half_time"/>
+                </field>
+            </field>
+        </record-->
+        
+        <record id="view_attendance_form_inherit_month" model="ir.ui.view">
+            <field name="name">hr.attendance.form.inherit.month</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_view_form"/>
+            <field name="arch" type="xml">
+                <field name="check_out" position="after">
+                	  <field name="site_office" invisible="0"/>
+                      <field name="month_attendance" invisible="0"/>
+                      <field name="checkin_float" invisible="0"/>
+                      <field name="checkout_float" invisible="0"/>
+                      <field name="hari" invisible="0"/>
+                      <field name="lambat" invisible="0"/>
+                      <field name="pla" invisible="0"/>
+                      <field name="no_checkout" invisible="0"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="view_attendance_tree_inherit_month" model="ir.ui.view">
+            <field name="name">hr.attendance.tree.inherit.month</field>
+            <field name="model">hr.attendance</field>
+            <field name="inherit_id" ref="hr_attendance.view_attendance_tree"/>
+            <field name="arch" type="xml">
+                <field name="check_out" position="after">
+                	  <field name="site_office" invisible="0"/>
+                      <field name="month_attendance" invisible="0"/>
+                      <field name="tgl_attendance" invisible="0"/>
+                      <field name="checkin_float" invisible="0"/>
+                      <field name="checkout_float" invisible="0"/>
+                      <field name="hari" invisible="0"/>
+                      <field name="lambat" invisible="0"/>
+                      <field name="pla" invisible="0"/>
+                      <field name="no_checkout" invisible="0"/>
+                      <field name="hari_kerja" invisible="0"/>
+                      <field name="hari_libur" invisible="0"/>
+                </field>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

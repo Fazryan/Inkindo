@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record model="ir.ui.view" id="membership_line_tree">
+            <field name="name">Member Line Tree</field>
+            <field name="model">membership.membership_line</field>
+            <field name="arch" type="xml">
+                <tree string="Member Line"  create="false" delete="true" >
+                    <field name="partner"/>
+                    <field name="date"/>
+                    <field name="membership_id"/>
+                    <field name="member_price"/>
+                    <field name="account_invoice_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="membership_line_form">
+            <field name="name">Member Line Form</field>
+            <field name="model">membership.membership_line</field>
+            <field name="arch" type="xml">
+               	<form string="Member Line" create="false" delete="true">
+	                  <sheet>
+	                  	  <group col="2">
+                             <group>
+                                <field name="partner"/>
+                               	<field name="membership_id"/>
+                                <field name="date"/>
+                                <field name="state"/>
+                             </group>
+                             <group>
+                               <field name="member_price"/>
+                               <field name="account_invoice_line" readonly="1"/>
+                               <field name="account_invoice_id" context="{'form_view_ref': 'account.invoice_form'}" readonly="1"/>
+                             </group>
+                         </group>
+	                </sheet>
+               	</form>
+            </field>
+        </record>
+  
+        <record id="view_member_non_inherit_search_form" model="ir.ui.view">
+        <field name="name">member.non.form.search.view.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="membership.view_res_partner_member_filter"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+          		<filter string="All Members (status != none)" name="none" domain="[('parent_id.membership_state', '!=', 'none')]"/>
+            </xpath>    
+        </field>
+    	</record>
+  
+       <record id="view_partner_non_inherit_search_form" model="ir.ui.view">
+        <field name="name">partner.non.form.search.view.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"></field>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+          		<filter string="All Members (status != none)" name="none" domain="[('parent_id.membership_state', '!=', 'none')]"/>
+            </xpath>
+        </field>
+    	</record>
+        
+        <record model="ir.actions.act_window" id="action_member_line">
+	    	<field name="name">Member Line</field>
+	    	<field name="res_model">membership.membership_line</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem name="Member Line" id="menu_member_line" sequence="50" parent="membership.menu_association" action="action_member_line"/>
+
+</odoo>

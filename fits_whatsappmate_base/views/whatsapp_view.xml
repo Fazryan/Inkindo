@@ -1,0 +1,54 @@
+<openerp>
+    <data>
+       <record id="view_whatsapp_form" model="ir.ui.view">
+            <field name="name">whatsapp.view.form</field>
+            <field name="model">whatsapp.group</field>
+            <field name="arch" type="xml">
+                <form string="Send">
+                  <header>
+                    <button name="send_wa" string="Send WA" type="object"/>
+                    <button name="send_wa_log" string="Send WA Log" type="object"/>
+                </header>
+                  <sheet>
+                  	<group>
+                      <group>
+                      	<field name="type_api"/>
+                        <field name="group_admin" placeholder="e.g. 628112345678"/>
+                        <field name="group_name" placeholder="Group Whatsapp e.g Odoo" attrs="{'invisible':[('type_api', '==', 'wablas')]}"/>
+                        <field name="group_id" placeholder="e.g. 152xx..." attrs="{'invisible':[('type_api', '==', 'whatsmate')]}"/>
+                        <field name="message"/>
+                       </group>
+                       <group>
+                        
+                       </group>
+                      </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+         <record id="view_whatsapp_tree" model="ir.ui.view">
+            <field name="name">whatsapp.view.tree</field>
+            <field name="model">whatsapp.group</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsapp Group">
+                	   <field name="group_admin"/>
+                       <field name="message"/>
+                </tree>
+            </field>
+      </record>
+        
+        
+       <record model="ir.actions.act_window" id="action_whatsapp">
+	    	<field name="name">Whatsapp</field>
+	    	<field name="res_model">whatsapp.group</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id="main_whatsapp_menu" name="Whatsapp" groups="hr.group_hr_manager"  web_icon="fits_whatsappmate_base,static/description/icon.png"/>
+		<menuitem id="whatsapp_menu" name="Whatsapp" parent="main_whatsapp_menu" sequence="1"/>
+	    <menuitem id="send_menu" name="Send Whatsapp Group" parent="whatsapp_menu" action="action_whatsapp" sequence="1"/>
+        
+    </data>
+</openerp>

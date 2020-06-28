@@ -1,0 +1,43 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_edu_form" model="ir.ui.view">
+            <field name="name">edu.form</field>
+            <field name="model">edu.background</field>
+            <field name="arch" type="xml">
+                <form string="Edu Form">
+                  <sheet>
+                      <group>
+                          <field name="jenjang"/>
+                          <field name="uraian"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_edu_tree" model="ir.ui.view">
+            <field name="name">edu.tree</field>
+            <field name="model">edu.background</field>
+            <field name="arch" type="xml">
+                <tree string="Edu Tree">
+                  <field name="jenjang"/>
+                  <field name="uraian"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_edu">
+        <field name="name">Master Pendidikan</field>
+        <field name="res_model">edu.background</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+      
+      <menuitem id="master" parent="inkindo" sequence="10" name="MASTER"/>
+      <menuitem id="edubackground" parent="master" sequence="2" action="action_edu"/>
+
+    </data>
+</openerp>

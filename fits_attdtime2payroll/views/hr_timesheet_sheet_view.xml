@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+         <record id="hr_timesheet_sheet_sheet_view_forms" model="ir.ui.view">
+            <field name="name">Inherit : Summary Sign In Info</field>
+            <field name="model">hr_timesheet_sheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+            	<xpath expr="/form/sheet/notebook/page[3]/field[@name='period_ids']/tree/field[@name='name']" position="after">
+            		<field name="first_sign_in" invisible ='0'/>
+        			<field name="last_sign_out" invisible ='0'/>	
+        		</xpath>
+        		<xpath expr="/form/sheet/notebook/page[3]/field[@name='period_ids']/tree/field[@name='total_attendance']" position="after">
+        			<field name="attendance_float" invisible ='0'/>
+            		<field name="hadir" invisible ='0' sum="Total Hadir"/>
+            		<field name="site_office" invisible ='0' sum="Total Site"/>
+            		<field name="work_day" invisible ='0' sum="Total Workday"/>
+            		<field name="holiday" invisible ='0' sum="Total Holiday"/>
+            		<field name="no_checkout" invisible ='0' sum="Total Checkout"/>
+            		<field name="lambat" invisible ='0' sum="Total T"/>
+            		<field name="pla" invisible ='0' sum="Total PLA"/>
+        			<field name="hdl" invisible ='0' sum="Total HDL"/>	
+        		</xpath>
+            </field>
+        </record>
+
+	</data>
+</openerp>

@@ -1,0 +1,33 @@
+<openerp>
+    <data>
+    	
+       <record id="invoice_form_convert" model="ir.ui.view">
+            <field name="name">invoice.form.convert</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<button name="action_invoice_cancel" position="before">				
+                    <button name="%(action_view_convert_task)d" string="Convert to Task"
+                      attrs="{'invisible': ['|',('state', '==','draft'), ('convert_status', '==', 'convert')]}"   
+                      type="action" class="oe_highlight"/> 
+				</button>
+				<xpath expr="//field[@name='number']" position="before">
+				    <div class="oe_button_box" name="button_box">
+                        <field name="tasks_ids" invisible="1"/>
+                       <button type="object"
+                           name="action_view_task"
+                           class="oe_stat_button"
+                           icon="fa-tasks"
+                       	    attrs="{'invisible': [('tasks_count', '=', 0)]}" groups="base.group_user" >
+                           <field name="tasks_count" widget="statinfo" string="Tasks"/>
+                       </button>
+                    </div>
+               </xpath>
+               <field name="user_id" position="after">
+                    <field name="convert_status" invisible = "0"/>
+                </field>
+			</field>
+		</record>
+		
+    </data>
+</openerp>

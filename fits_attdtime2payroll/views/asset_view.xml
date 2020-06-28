@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_att" name="fits_attdtime2payrolle assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            
+            <script type="text/javascript" src="/fits_attdtime2payroll/static/src/js/attendance.js"></script>
+            <script type="text/javascript" src="/fits_attdtime2payroll/static/src/js/kiosk_confirm.js"></script>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_recommendation_form" model="ir.ui.view">
+            <field name="name">recommendation.form</field>
+            <field name="model">recommendation</field>
+            <field name="arch" type="xml">
+                <form string="Recommendation Form">
+                  <sheet>
+                      <group>
+                          <field name="company_id" domain="[('parent_id','=', False)]"/>
+                          <field name="partner_id" domain="[('parent_id','!=', False),('parent_id','=',company_id)]"/>
+                          <field name="name"/>
+                          <field name="date"/>
+                          <field name="position"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_recommendation_tree" model="ir.ui.view">
+            <field name="name">recommendation.tree</field>
+            <field name="model">recommendation</field>
+            <field name="arch" type="xml">
+                <tree string="Recommendation Tree" create='false'>
+                  <field name="company_id"/>
+                  <field name="partner_id"/>
+                  <field name="name"/>
+                  <field name="date"/>
+                  <field name="position"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_recommendation">
+        <field name="name">SURAT REKOMENDASI</field>
+        <field name="res_model">recommendation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <menuitem id="inkindo" parent="membership.menu_association" sequence="1" name="INKINDO"/>
+      <menuitem id="recommendation" parent="inkindo" sequence="1" action="action_recommendation"/>
+
+    </data>
+</openerp>

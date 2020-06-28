@@ -1,0 +1,42 @@
+<odoo>
+    <data>      
+  
+      <record model="ir.ui.view" id="tree_view_bidang">
+            <field name="name">tree.bidang.layanan</field>
+            <field name="model">bidang.layanan</field>
+            <field name="arch" type="xml">
+                <tree string="Tree Bidang">
+                  <field name="name"/>
+                  <field name="jenis_bidang"/>
+                </tree>
+            </field>
+      </record>
+      
+      <record model="ir.ui.view" id="form_view_bidang">
+            <field name="name">form.bidang.layanan</field>
+            <field name="model">bidang.layanan</field>
+            <field name="arch" type="xml">
+                <form string="Form Bidang">
+                  <sheet>
+                      <group string="Bidang Layanan">
+                          <field name="name"/>
+                          <field name="jenis_bidang"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_bidang">
+        <field name="name">Master Jenis Bidang</field>
+		<field name="type">ir.actions.act_window</field>
+        <field name="res_model">bidang.layanan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+      
+      <menuitem id="bidang" parent="master" sequence="3" action="action_bidang" name='Master Jenis Bidang'/>
+
+    </data>
+</odoo>

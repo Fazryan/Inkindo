@@ -1,0 +1,61 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_tat_form" model="ir.ui.view">
+            <field name="name">tat.form</field>
+            <field name="model">tenaga.administrasi.tetap</field>
+            <field name="arch" type="xml">
+                <form string="Tenaga Administrasi Tetap">
+                  <sheet>
+                      <group>
+                          <field name="company_id"/>
+                          <!-- <field name="alamat_perusahaan"/> -->
+                          <field name="partner_id"/>
+                          <field name="addres"/>
+                          <field name="kota"/>
+                          <field name="kode_pos"/>
+                          <field name="no_surat_penetepan"/>
+                          <field name="position"/>
+                          <field name="pendidikan_terakhir"/>
+                          <field name="skill"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_tat_tree" model="ir.ui.view">
+            <field name="name">tat.tree</field>
+            <field name="model">tenaga.administrasi.tetap</field>
+            <field name="arch" type="xml">
+                <tree string="Tenaga Administrasi Tetap Tree" create='false'>
+                  <field name="company_id"/>
+                  <!-- <field name="alamat_perusahaan"/> -->
+                  <field name="partner_id"/>
+                  <field name="addres"/>
+                  <field name="kota"/>
+                  <field name="kode_pos"/>
+                  <field name="no_surat_penetepan"/>
+                  <field name="position"/>
+                  <field name="pendidikan_terakhir"/>
+                  <field name="skill"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_tat">
+        <field name="name">TENAGA ADMINISTRASI TETAP</field>
+        <field name="res_model">tenaga.administrasi.tetap</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <!-- <menuitem id="dipa77a" parent="membership.menu_association" sequence="4" name="DIPA-07-07A"/> -->
+      <menuitem id="tat" parent="inkindo" sequence="4" action="action_tat"/>
+
+    </data>
+</openerp>

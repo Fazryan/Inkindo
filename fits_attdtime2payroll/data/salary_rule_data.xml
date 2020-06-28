@@ -1,0 +1,80 @@
+<odoo>
+    <data noupdate="1">
+        <record id="hour_timesheet_salary_rule" model="hr.salary.rule">
+            <field name="name">Hour Timesheet</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">HTS</field>
+            <field name="sequence" eval="20"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if payslip.hours_timesheet:
+   result = payslip.hours_timesheet
+else :
+   result = 0.0 
+            </field>
+        </record>
+        
+        <record id="kehadiran_salary_rule" model="hr.salary.rule">
+            <field name="name">Absensi Kehadiran</field>
+            <field name="category_id" ref="hr_payroll.ALW"/>
+            <field name="code">AK</field>
+            <field name="sequence" eval="21"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if payslip.kehadiran:
+   result = payslip.kehadiran
+else :
+   result = 0.0 
+            </field>
+        </record>
+        
+        <record id="pla_salary_rule" model="hr.salary.rule">
+            <field name="name">Pulang Lebih Awal</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">PLA</field>
+            <field name="sequence" eval="22"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if payslip.lbh_awal:
+   result = payslip.lbh_awal
+else :
+   result = 0.0 				
+            </field>
+        </record>
+        
+        <record id="terlambat_salary_rule" model="hr.salary.rule">
+            <field name="name">Absensi Terlambat</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">AT</field>
+            <field name="sequence" eval="23"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if payslip.terlambat:
+   result = payslip.terlambat
+else :
+   result = 0.0 				
+            </field>
+        </record>
+        
+        <record id="half_time_salary_rule" model="hr.salary.rule">
+            <field name="name">Absensi Setengah Hari</field>
+            <field name="category_id" ref="hr_payroll.DED"/>
+            <field name="code">ASH</field>
+            <field name="sequence" eval="24"/>
+            <field name="condition_select">none</field>
+            <field name="amount_select">code</field>
+            <field name="amount_python_compute">
+if payslip.half_time:
+   result = payslip.half_time
+else :
+   result = 0.0 				
+            </field>
+        </record>
+        
+        
+    </data>
+</odoo>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_timesheet_report_task" model="ir.ui.view">
+            <field name="name">Report Task Timesheet</field>
+            <field name="model">task.timesheet.report</field>
+            <field name="arch" type="xml">
+                <form string="Task Timesheet Report">
+                <group string="Timesheet">
+                    <group>
+                        <field name="task_id"/>
+                        <field name="project_id" invisible="1"/>
+                        <field name="user_id" invisible="1"/>
+                        <field name="date_report"/>
+                        <field name="name"/>
+                        <field name="effective_hours"/>
+                        <field name="total_effective"/>
+                        <field name="planned_hours"/>                  
+                    </group>
+                    <group>
+				        <label for="start_time_jam" string="Start Time"/>
+                        <div>
+                        <field name="start_time_jam" class="oe_inline"/> : <field name="start_time_menit" class="oe_inline"/>
+                        </div>
+                        <label for="end_time_jam" string="End Time"/>
+                        <div>
+                        <field name="end_time_jam" class="oe_inline"/> : <field name="end_time_menit" class="oe_inline"/>
+                        </div>
+				        <field name="unit_amount" widget="float_time"/>
+				        <field name="start" widget="float_time" invisible="1" />
+				        <field name="end" widget="float_time" invisible="1"/>
+				        <field name="istirahat" widget="float_time"/>
+				        <field name="work_time" widget="float_time"/>
+				     </group>    
+				</group>
+				<group string="Progress">
+                    <group>
+                        <field name="actual_today"/>
+                        <field name="progres"/>
+                        <field name="total_progres"/>                    
+                    </group>
+                    <group>
+				        
+				    </group>    
+				</group>
+				<group string="Message">
+					    <field name="partner_ids" widget="many2many_tags"/>
+					    <field name="channel_ids" widget="many2many_tags"/>
+                        <field name="note"/>
+                        <field name="next_activity"/>
+                        <field name="problem_solution"/>
+                        <field name="attachment_ids" widget="many2many_binary" string="Attach a file" nolabel="1" colspan="2"/>                 
+				</group>
+                    <footer>
+                        <button name="create_report" string="_Apply" type="object" class="btn-primary"/>
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+
+        <record id="action_view_input_timesheet" model="ir.actions.act_window">
+            <field name="name">Report Task</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">task.timesheet.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_timesheet_report_task"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
+

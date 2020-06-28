@@ -1,0 +1,66 @@
+<openerp>
+    <data>
+       <record id="view_whatsapp_todo_form" model="ir.ui.view">
+            <field name="name">whatsapp.todo.view.form</field>
+            <field name="model">wa.group.todotoday</field>
+            <field name="arch" type="xml">
+                <form string="Setting Whatsapp Admin">
+                  <sheet>
+                  	<group>
+                      <group>
+                      	<field name="type_api"/>
+                      	<field name="group_name" placeholder="Group Whatsapp e.g Odoo"/>
+                        <field name="group_id" placeholder="e.g. 152xx..." attrs="{'invisible':[('type_api', '==', 'whatsmate')]}"/>
+                        <field name="number_admin" placeholder="e.g. 628112345678"/>
+                        <field name="is_employee" invisible="1"/>
+                        <field name="group_manager" attrs="{'invisible':[('is_employee', '==', False)]}"/>
+                       </group>
+                       <group>
+                        
+                       </group>
+                      </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+         <record id="view_whatsapp_todo_tree" model="ir.ui.view">
+            <field name="name">whatsapp.todo.view.tree</field>
+            <field name="model">wa.group.todotoday</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsapp Group">
+                	   <field name="type_api"/>
+                	   <field name="group_name"/>
+                       <field name="number_admin"/>
+                       <field name="is_employee" invisible="1"/>
+                </tree>
+            </field>
+      </record>
+        
+        
+       <record model="ir.actions.act_window" id="action_whatsapp_todo">
+	    	<field name="name">Whatsapp Config</field>
+	    	<field name="res_model">wa.group.todotoday</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id="menu_todo_today_wa"
+            name="Config WhatsApp"  
+            action="action_whatsapp_todo"
+            parent="add_todo_today" 
+            sequence="2" groups="hr.group_hr_manager"/> 	
+            	
+        <record id="view_channel_inherit_form" model="ir.ui.view">
+	        <field name="name">channel.form.view.inherit</field>
+	        <field name="model">mail.channel</field>
+	        <field name="inherit_id" ref="mail.mail_channel_view_form"></field>
+	        <field name="arch" type="xml">
+	             <field name="alias_contact" position="after">
+	                    <field name="wagroup_id" style="min-width: 30px;"/>
+				</field>
+	        </field>
+    	</record>
+        
+    </data>
+</openerp>

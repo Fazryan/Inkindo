@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="account_invoice_task_form">
+            <field name="name">account.invoice.task.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml"> 
+                <field name="name" position="after">
+                	<field name="test"/>
+                </field>
+            </field> 
+        </record>  
+    </data>
+</openerp>
+

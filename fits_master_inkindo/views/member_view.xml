@@ -1,0 +1,189 @@
+<openerp>
+    <data>
+        <record id="product_member_form" model="ir.ui.view">
+        <field name="name">product.member.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="membership.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                    <button class="oe_stat_button" type="action" name="%(fits_master_inkindo.action_subbidang_active)d" 
+                        icon="fa-tasks">
+                        <field string="Sub Layanan" name="sub_layanan_count" widget="statinfo"/>
+                    </button>     
+                </div>
+            <field name="type" position="after">
+                    <field name="bentuk_perusahaan"/>
+                    <field name="status_perusahaan"/>
+            </field>
+            <field name="country_id" position="after">
+                    <field name="kewarganegaraan" placeholder="Kewarganegaraan"/>
+            </field>
+            <xpath expr="//div[@name='div_address']" position="inside">
+                    <field name="kewarganegaraan" placeholder="Kewarganegaraan"/>
+            </xpath>
+            <notebook position="inside">
+                <page string="DIPA">
+                  <notebook>
+                            <!-- <page string="DATA ADMINISTRASI">
+                                <group>
+                                    <field name="nama_perusahaan"/>
+                                    <field name="bentuk_perusahaan"/>
+                                    <field name="status_perusahaan"/>
+                                </group>
+                            </page> -->
+                            <page string="SURAT REKOMENDASI">
+                                <group>
+                                    <field name="recomm_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="partner_id" domain="[('parent_id','!=',False),('parent_id','=',parent.id)]"/>
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="position"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field> 
+                                </group>
+                            </page>       
+                            <!-- <page string="SUBBIDANG LAYANAN">
+                                <group>
+                                    <field name="sub_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="kode_sb"/>
+                                        <field name="bidang"/>
+                                        <field name="subbidang"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field>
+                                </group>
+                            </page> -->
+                            <page string="PEMILIK DAN PENGURUS">
+                                <group>
+                                    <field name="owner_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="partner_id" domain="[('parent_id','!=',False),('parent_id','=',parent.id)]"/>
+                                        <field name="addres"/>
+                                        <field name="citizenship"/>
+                                        <field name="pemilik_saham_rp"/>
+                                        <field name="pemilik_saham_persen"/>
+                                        <field name="position"/>
+                                        <field name="keterangan"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field> 
+                                </group>
+                            </page>     
+                            <page string="TENAGA ADMINISTRASI TETAP">
+                                <group>
+                                    <field name="tat_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="partner_id" domain="[('parent_id','!=',False),('parent_id','=',parent.id)]"/>
+                                        <field name="addres"/>
+                                        <field name="kota"/>
+                                        <field name="kode_pos"/>
+                                        <field name="no_surat_penetepan"/>
+                                        <field name="position"/>
+                                        <field name="pendidikan_terakhir"/>
+                                        <field name="skill"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field> 
+                                </group>
+                            </page>
+                            <page string="PJ TEKNIS">
+                                <group>
+                                    <field name="pjt_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="partner_id" domain="[('parent_id','!=',False),('parent_id','=',parent.id)]"/>
+                                        <field name="addres"/>
+                                        <field name="kota"/>
+                                        <field name="kode_pos"/>
+                                        <field name="no_surat_penetepan"/>
+                                        <field name="tgl_penetapan"/>
+                                        <field name="pendidikan_terakhir"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field> 
+                                </group>
+                            </page>
+                            <page string="TENAGA AHLI">
+                                <group>
+                                    <field name="ta_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="partner_id" domain="[('parent_id','!=',False),('parent_id','=',parent.id)]"/>
+                                        <field name="addres"/>
+                                        <field name="kota"/>
+                                        <field name="kode_pos"/>
+                                        <field name="category"/>
+                                        <field name="pendidikan_terakhir"/>
+                                        <field name="thn_lulus"/>
+                                        <field name="skill"/>
+                                        <field name="kewarganegaraan"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field> 
+                                </group>
+                            </page>
+                            <page string="ASSET">
+                                <group>
+                                    <field name="asset_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="category"/>
+                                        <field name="qty"/>
+                                        <field name="status"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field> 
+                                </group>
+                            </page>
+                            <page string="OFFICE">
+                                <group>
+                                    <field name="office_line" nolabel="1">
+                                      <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="category"/>
+                                        <field name="addres"/>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                      </tree> 
+                                    </field> 
+                                </group>
+                            </page>         
+                            <page string="AKTE PERUSAHAAN">
+                                <group>
+                                    <field name="akte_line" nolabel="1">
+                                        <tree editable="bottom">
+                                            <field name="nama_notaris"/>
+                                            <field name="no_notaris"/>
+                                            <field name="tgl_notaris"/>
+                                            <field name="pendaf_pn"/>
+                                            <field name="no_pn"/>
+                                            <field name="tgl_pn"/>
+                                            <field name="no_pengesahan"/>
+                                            <field name="tgl_pengesahan"/>
+                                            <field name="jenis_akte"/>
+                                            <field name="attachment_ids" widget="many2many_binary"/>
+                                        </tree> 
+                                    </field>    
+                                </group>
+                            </page>
+                            <page string="DOKUMEN PERUSAHAAN">
+                                <group>
+                                    <field name="dok_line" nolabel="1">
+                                        <tree editable="bottom">
+                                            <field name="name"/>
+                                            <field name="no_dokumen"/>
+                                            <field name="start_date"/>
+                                            <field name="end_date"/>
+                                            <field name="category"/>
+                                            <field name="attachment_ids" widget="many2many_binary"/>
+                                        </tree> 
+                                    </field>    
+                                </group>
+                            </page>           
+                  </notebook>
+                </page>
+            </notebook>
+        </field>
+    </record>
+    </data>
+</openerp>

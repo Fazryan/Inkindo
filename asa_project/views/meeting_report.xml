@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp> 
+    <data>
+        
+        <report id="meeting_qweb_report"
+                string="Minutes of Meeting"
+                model="project.meeting"
+                report_type = "qweb-pdf"
+                file="asa_project.report_meeting_qweb"
+                name="asa_project.report_meeting_qweb"/>  
+                	
+                	
+
+
+<record id="asa_project.meeting_qweb_report" model="ir.actions.report.xml">
+    <field name="paperformat_id" ref="asa_project.paperformat_lowmargin"/>
+</record>
+        
+
+      <template id="report_meeting_qweb">
+            <t t-call="report.html_container"> 
+                <t t-foreach="docs" t-as="doc">
+                     <t t-call="report.external_layout">
+                     	
+                        <div class="page">
+                    <!--<div class="oe_structure"/>-->
+                    
+                    <h3 class="text-center">
+                       Minutes Of Meeting 
+                    <br/>
+                    (<span t-field="doc.name"/>)
+                    </h3>
+                    <br/>
+                    
+                   <!--div class="container-fluid small" style="padding:5px">
+                    <div class="row">
+                        <div class="col-xs-6" style="border-right-style:solid; border-right-color:red ">
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Client Name : </div> 
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.owner_id.name" />
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Project Location : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.project_location"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Project Name : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.project_id.name"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Project Description : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.description"/>
+                        </div>
+                        <div class="col-xs-6 row">
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Contractor :</div> 
+                            <div class="col-xs-8 text-left" style="padding-left:3px" t-field="doc.company_id.name"/>
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Project Manager :</div>
+                            <div class="col-xs-8 text-left" style="padding-left:3px" t-field="doc.project_id.user_id.name" />
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Prepared by :</div>
+                            <div class="col-xs-8 text-left"  style="padding-left:3px" t-field="doc.write_uid.name" />
+                        </div>
+                    </div>
+                    </div-->                 
+                    
+                    <!--div class="container-fluid small" style="padding:5px">
+                    	<div class="col-xs-6 row">
+                    		
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Meeting Location : </div> 
+                            <div class="col-xs-8 text-left" style="padding-left:3px" t-field="doc.meeting_location" />
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Meeting Date/ Time : </div>
+                            <div class="col-xs-8 text-left" style="padding-left:3px" t-field="doc.date_from"/>
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px"></div>
+                            <div class="col-xs-8 text-left"  style="padding-left:3px" t-field="doc.date_to"/>
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Attendees : </div>
+                            <div class="col-xs-8 text-left" style="padding-left:3px">
+                            <t t-foreach="doc.project_meeting_layouted()" t-as="page">
+                           	<t t-foreach="page" t-as="layout_category">
+                           		<t t-esc="layout_category['name']"/>
+                           		(<t t-foreach="layout_category['lines']" t-as="l">
+											<span t-field="l.partner_id.name"/>,
+                           		</t>)<br/>
+                           	</t> 	
+                        </t>
+                        </div>
+                        
+                        </div>
+                        </div-->
+                 <table width="100%"> 
+                 	<td class="text-left"> 
+                    <table>
+                        <tr><td>Client Name</td><td> : </td><td><span t-field="doc.owner_id.name"/></td></tr>
+                        <tr><td>Project Location</td><td> : </td><td><span t-field="doc.project_location"/></td></tr>
+                        <tr><td>Project Name</td><td> : </td><td><span t-field="doc.project_id.name"/></td></tr>
+                        <tr><td>Project Description</td><td> : </td><td><span t-field="doc.description"/></td></tr>
+                    
+                    </table>	
+                    
+                    </td>
+                        <td>  </td>
+                        <td>  </td>
+                        <td>  </td>
+                    <td class="text-right">
+                    <table>
+                    	<tr><td>Company</td><td> : </td><td><span t-field="doc.company_id.name"/></td></tr>
+                        <tr><td>Project Manager</td><td> : </td><td><span t-field="doc.project_id.user_id.name"/></td></tr>
+                        <tr><td>Prepared by</td><td> : </td><td><span t-field="doc.write_uid.name"/></td></tr>
+                        
+                    </table>  	
+                    </td>  
+                 </table>
+                 <table width="100%"> 
+                 	<td class="text-left"> 
+                    <table>
+                    
+                        <tr><td style="padding-top: 20px;">Place</td><td> : </td><td><span t-field="doc.meeting_location"/></td></tr>
+                        <tr><td>Date/ Time</td><td> : </td><td><span t-field="doc.date_from"/>&#160;-&#160;<span t-field="doc.date_to"/></td></tr>
+                        <tr><td>Attendees</td><td> : </td><td>
+                        <t t-foreach="doc.project_meeting_layouted()" t-as="page">
+                           	<t t-foreach="page" t-as="layout_category">
+                           		<t t-esc="layout_category['name']"/>
+                           		(<t t-foreach="layout_category['lines']" t-as="l">
+											<span t-field="l.partner_id.title"/>.<span t-field="l.partner_id.name"/>,
+                           		</t>)<br/>
+                           	</t> 	
+                        </t>
+                        		
+                        </td></tr>   
+                    </table>	
+                    
+                    </td>  
+                 </table>                        
+                 <br/> 
+                <t t-foreach="doc.project_lines_layouted()" t-as="page">
+                	<div style="font-weight: bold;">Meeting Line</div>
+					<table class="table table-condensed" style="font-size:12px;" width="100%">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:10%; border: solid 1px #000;">No.</th>
+								<th class="text-center" style="width:50%; border: solid 1px #000;">Item/Description</th>
+								<th class="text-center" style="width:20%; border: solid 1px #000;">PIC</th>
+								<th class="text-center" style="width:10%; border: solid 1px #000;">Date</th>
+								<th class="text-center" style="width:10%; border: solid 1px #000;">Due Date</th>
+							</tr>
+					   </thead>
+					   <tbody class="sale_tbody">
+							<t t-foreach="page" t-as="layout_category">
+
+								<t t-if="layout_category_size &gt; 1 or page_size &gt; 1">
+									<tr class="active">
+										<td colspan="7" style="font-weight: bold; border: solid 1px #000;">&amp;bull;
+											<t t-esc="layout_category['name']"/>
+										</td>
+									</tr>
+								</t>
+								
+								<!-- Lines associated -->
+								<t t-foreach="layout_category['lines']" t-as="l">
+									<tr>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-esc="l.number"/>
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<span t-field="l.item" style="font-weight: bold;"/><br/>
+											<span t-field="l.description"/>
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<span t-field="l.partner_id"/>
+										</td>
+										<td class="text-right" style="border: solid 1px #000;">
+											<span t-field="l.date"/>
+										</td>
+										<td class="text-right" style="border: solid 1px #000;">
+											<span t-field="l.due_date"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+						</tbody>
+					</table>
+				</t>
+				
+                		</div>
+                    </t>
+                </t>
+            </t>
+       
+        </template>
+
+
+                	
+    </data>
+</openerp>

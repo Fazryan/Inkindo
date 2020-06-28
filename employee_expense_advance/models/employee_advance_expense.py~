@@ -1,0 +1,131 @@
+# -*- coding: utf-8 -*-
+
+import time
+
+from odoo.exceptions import UserError
+from openerp import models, fields, api, _
+from openerp.exceptions import Warning
+import odoo.addons.decimal_precision as dp
+
+class EmployeeAdvanceExpense(models.Model):
+    _name = 'employee.advance.expense'
+    _description = "Employee Advance Expense"
+    _inherit = ['mail.thread', 'ir.needaction_mixin']
+    _order = 'id desc'
+
+    @api.model
+    def get_currency(self):
+        return self.env.user.company_id.currency_id
+        
+    @api.multi
+    @api.depends('advance_expense_line_ids', 'advance_expense_line_ids.total_amount')
+    def _compute_total_amount_expense(self):
+        for rec in self:
+            rec.total_amount_expense = 0.0
+            for line in rec.advance_expense_line_ids:
+                rec.total_amount_expense += line.total_amount
+            
+    @api.multi
+    @api.depends('journal_id', 'currency_id')
+    def _compute_paid_currency(self):
+        for rec in self:
+            if not rec.journal_id.currency_id:
+                rec.paid_in_currency = rec.currency_id.id
+            else:  
+                rec.paid_in_currency = rec.journal_id.currency_id
+    
+    @api.multi
+    @api.depends('move_id', 'move_id.amount')
+    def _compute_payed_amount(self):
+        for rec in self:
+            rec.paid_amount = rec.move_id.amount
+    
+    name = fields.Char(
+        string='Number',
+        index=True,
+        default=lambda self: _('New'),
+        readonly=1,
+    )
+    employee_id = fields.Many2one('hr.employee', required=True, readonly=True, string="Employee",default=lambda self: self.env['hr.employee'].search([('user_id', '=', self.env.uid)], limit=1), states={'draft': [('readonly', False)]})
+    request_date = fields.Date(string='Requested Date', default=fields.Date.today(), readonly=True, states={'draft': [('readonly', False)]})
+    confirm_date = fields.Date(string='Confirmed Date', \
+                        readonly=True, copy=False)
+    
+    hr_validate_date = fields.Date(string='Approved Date', \
+                        readonly=True, copy=False)
+    account_validate_date = fields.Date(string='Paid Date', \
+                        readonly=True, copy=False)
+    confirm_by_id = fields.Many2one('res.users', string='Confirmed By', readonly=True, copy=False)
+    hr_manager_by_id = fields.Many2one('res.users', string='Approved By', readonly=True, copy=False)
+    
+    account_by_id = fields.Many2one('res.users', string='Paid By', readonly=True, copy=False)
+    
+    department_id = fields.Many2one('hr.department', string='Department', readonly=True, states={'draft': [('readonly', False)]})
+    job_id = fields.Many2one('hr.job', string='Job Title', readonly=True, states={'draft': [('readonly', False)]})
+    currency_id = fields.Many2one('res.currency', string='Currency', default=get_currency, required=True, readonly=True, states={'draft': [('readonly', False)]})
+    comment = fields.Text(string='Comment')
+    total_amount_expense = fields.Float(string='Requested Amount', store=True, compute='_compute_total_amount_expense', digits=dp.get_precision('Account'))
+    user_id = fields.Many2one('res.users', default=lambda self: self.env.user, string='Requested User', readonly=True)
+    company_id = fields.Many2one('res.company', default=lambda self: self.env.user.company_id, string='Company', readonly=True)
+    reason_for_advance = fields.Text(string='Reason For Advance', readonly=True, states={'draft': [('readonly', False)]})
+    state = fields.Selection(selection=[
+                        ('draft', 'Draft'), \
+                        ('confirm', 'Confirmed'), \
+                        ('approved_hr_manager', 'Approved'),\
+                        ('paid', 'Paid'),\
+                        ('done', 'Done'),\
+                        ('cancel', 'Cancelled'),\
+                        ('reject', 'Rejected')],string='State', \
+                        readonly=True, default='draft', \
+                        track_visibility='onchange')
+    partner_id = fields.Many2one('res.partner', string='Employee Partner')
+    journal_id = fields.Many2one('account.journal', string='Payment Method')
+    payment_id = fields.Many2one('account.payment', string='Payment', readonly=True)
+    paid_in_currency = fields.Many2one('res.currency', string='Paid in Currency',compute='_compute_paid_currency')
+    account_id = fields.Many2one('account.account', string='Asset Account')
+    
+    move_id = fields.Many2one('account.move', string = 'Journal Entry', readonly=True)
+    advance_expense_line_ids = fields.One2many('advance.expense.line', 'advance_line_id', string='Advance Expenses Lines', copy=False)
+    paid_amount = fields.Float(compute=_compute_payed_amount, string='Paid Amount', store=True, digits=dp.get_precision('Account'))
+    
+    @api.onchange('employee_id', 'employee_id.address_home_id')
+    def get_department(self):
+        for line in self:
+            line.department_id = line.employee_id.department_id.id
+            line.job_id = line.employee_id.job_id.id
+            line.manager_id = line.employee_id.parent_id.id
+            line.partner_id = line.employee_id.address_home_id and line.employee_id.address_home_id.id or False
+   
+    @api.multi
+    def request_set(self):
+        self.state = 'draft'
+    
+    @api.multi
+    def exit_cancel(self):
+        self.state = 'cancel'
+        
+    @api.multi
+    def get_confirm(self, vals):
+        if not self.advance_expense_line_ids:
+           raise Warning(_('Please add some advance expense lines.'))
+        else:
+            self.name = self.env['ir.sequence'].next_by_code('employee.advance.expense')
+            self.state = 'confirm'
+            self.confirm_date = time.strftime('%Y-%m-%d')
+            self.confirm_by_id = self.env.user.id
+   
+    @api.multi
+    def get_apprv_hr_manager(self):
+        self.state = 'approved_hr_manager'
+        self.hr_validate_date = time.strftime('%Y-%m-%d')
+        self.hr_manager_by_id = self.env.user.id
+        
+    @api.multi
+    def get_done(self):
+        self.state = 'done'
+    
+    @api.multi
+    def get_reject(self):
+        self.state = 'reject'
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

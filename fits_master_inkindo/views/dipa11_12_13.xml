@@ -1,0 +1,51 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_asset_form" model="ir.ui.view">
+            <field name="name">asset.form</field>
+            <field name="model">asset</field>
+            <field name="arch" type="xml">
+                <form string="Asset Form">
+                  <sheet>
+                      <group>
+                          <field name="company_id"/>
+                          <field name="name"/>
+                          <field name="category"/>
+                          <field name="qty"/>
+                          <field name="status"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_asset_tree" model="ir.ui.view">
+            <field name="name">asset.tree</field>
+            <field name="model">asset</field>
+            <field name="arch" type="xml">
+                <tree string="Asset Tree" create='false'>
+                  <field name="company_id"/>
+                  <field name="name"/>
+                  <field name="category"/>
+                  <field name="qty"/>
+                  <field name="status"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_asset">
+        <field name="name">ASSET</field>
+        <field name="res_model">asset</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <!-- <menuitem id="dipa111213" parent="membership.menu_association" sequence="7" name="DIPA-11-12-13"/> -->
+      <menuitem id="asset" parent="inkindo" sequence="7" action="action_asset"/>
+
+    </data>
+</openerp>

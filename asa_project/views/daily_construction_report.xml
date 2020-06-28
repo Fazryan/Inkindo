@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp> 
+    <data>
+        
+        <!--report id="construction_daily_qweb_report"
+                string="Daily Activities"
+                model="project.daily"
+                report_type = "qweb-pdf"
+                file="asa_project.report_construction_qweb"
+                name="asa_project.report_construction_qweb"/-->  
+                	
+                	
+
+<record id="paperformat_lowmargin_landscape" model="report.paperformat">
+    <field name="name">European A3 low margin Landcape</field>
+    <field name="default" eval="True" />
+    <field name="format">A3</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Landscape</field>
+    <field name="margin_top">40.00</field>
+    <field name="margin_bottom">25.00</field>
+    <field name="margin_left">10.00</field>
+    <field name="margin_right">10.00</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">35</field>
+    <field name="dpi">90</field>
+</record>
+
+<!--record id="asa_project.construction_daily_qweb_report" model="ir.actions.report.xml">
+    <field name="paperformat_id" ref="asa_project.paperformat_lowmargin_landscape"/>
+</record-->
+        
+
+      <template id="report_construction_qweb">
+            <t t-call="report.html_container"> 
+                <t t-foreach="docs" t-as="doc">
+                     <t t-call="report.external_layout">
+                     	
+                        <div class="page">
+                    <!--<div class="oe_structure"/>-->
+                    
+                    <h3 class="text-center">
+                        DAILY ACTIVITIES REPORT
+                    </h3>
+                    
+                   <!--table>
+                        <tr><td>Project Name</td><td>&#160;:&#160;</td><td><span t-field="doc.project_id.name"/></td></tr>
+                        <tr><td>Location</td><td>&#160;:&#160;</td><td><span t-field="doc.location"/></td></tr>
+                        <tr><td>Contractor</td><td>&#160;:&#160;</td><td><span t-field="doc.company_id.name"/></td></tr>
+                        <tr><td>Report Date</td><td>&#160;:&#160;</td><td><span t-field="doc.date_daily"/></td></tr>
+                        <tr><td>Work Hour</td><td> : </td><td><span t-esc="'%02d:%02d' % (int(doc.start), doc.start % 1 * 60)"/>&#160;-&#160;
+                        	<span t-esc="'%02d:%02d' % (int(doc.end), doc.end % 1 * 60)"/></td></tr>
+                        <tr><td>Project Manager</td><td>&#160;:&#160;</td><td><span t-field="doc.project_id.user_id.name"/></td></tr>
+                        <tr><td>Prepared by</td><td>&#160;:&#160;</td><td><span t-field="doc.write_uid.name"/></td></tr>
+                   </table-->
+                   <div class="container-fluid small" style="padding:5px">
+                    <div class="row">
+                        <div class="col-xs-6" style="border-right-style:solid; border-right-color:red ">
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Project Name : </div> 
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.project_id.name" />
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Location : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.location"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Company : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.company_id.name"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Report Date : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="doc.date_daily"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Work Hour : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px">
+                            <span t-esc="'%02d:%02d' % (int(doc.start), doc.start % 1 * 60)"/>&#160;-&#160;
+                        	<span t-esc="'%02d:%02d' % (int(doc.end), doc.end % 1 * 60)"/>	
+                            </div>
+                        </div>
+                        <div class="col-xs-6 row">
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Project Manager :</div>
+                            <div class="col-xs-8 text-left" style="padding-left:3px" t-field="doc.project_id.user_id.name" />
+                            <div class="col-xs-4 text-right" style="padding-right:5px; padding-left:3px">Prepared by :</div>
+                            <div class="col-xs-8 text-left"  style="padding-left:3px" t-field="doc.write_uid.name" />
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    </div>
+                   
+                   <br/>
+                    
+            
+        <table width="100%">          
+               <td> 
+                <t t-foreach="doc.project_lines_layouted()" t-as="page">
+                	<div style="font-weight: bold;">A. MANPOWER</div>
+					<table class="table table-condensed" style="font-size:12px;" width="100%">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:5%; border: solid 1px #000;">No</th>
+								<th class="text-center" style="width:35%; border: solid 1px #000;">Designation</th>
+								<th class="text-center" style="width:50%; border: solid 1px #000;">Name</th>
+								<th class="text-center" style="width:10%; border: solid 1px #000;">Person</th>
+							</tr>
+					   </thead>
+					   <tbody class="sale_tbody">
+							<t t-foreach="page" t-as="layout_category">
+
+								<t t-if="layout_category_size &gt; 1 or page_size &gt; 1">
+									<tr class="active">
+										<td colspan="7" style="font-weight: bold; border: solid 1px #000;">&amp;bull;
+											<t t-esc="layout_category['name']"/>
+										</td>
+									</tr>
+								</t>
+								
+								<!-- Lines associated -->
+								<t t-foreach="layout_category['lines']" t-as="l">
+									<tr>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-esc="l_index + 1"/>
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<span t-field="l.designation_id"/>
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<span t-field="l.partner_id.name"/>
+										</td>
+										<td class="text-right" style="border: solid 1px #000;">
+											<span t-field="l.person"/>
+										</td>
+									</tr>
+								</t>
+							</t>
+						</tbody>
+						<tr><td style="border-left:solid 1px #000; border-bottom:solid 1px #000;"></td>
+						<td style="border-bottom:solid 1px #000;"></td>
+						<td class="text-center" style="border-bottom:solid 1px #000; font-weight: bold;">Total Person</td><td class="text-right" style="border: solid 1px #000; font-weight: bold;"><span t-field="doc.total_person"/></td></tr>
+					</table>
+				</t>
+				<div>
+					<t t-foreach="doc.project_weather_layouted()" t-as="page">
+					<div style="font-weight: bold;">C. WEATHER REPORT</div>
+					<table class="table table-condensed" style="font-size:12px;" width="100%">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:5%; border: solid 1px #000;">No</th>
+								<th class="text-center" style="width:20%; border: solid 1px #000;">Start Time</th>
+								<th class="text-center" style="width:20%; border: solid 1px #000;">End Time</th>
+								<th class="text-center" style="width:20%; border: solid 1px #000;">Duration</th>
+								
+							</tr>
+					   </thead>
+					   <tbody class="sale_tbody">
+								<!-- Lines associated -->
+								<t t-foreach="page" t-as="layout_category">
+
+								<t t-if="layout_category_size &gt; 1 or page_size &gt; 1">
+									<tr class="active">
+										<td colspan="7" style="font-weight: bold; border: solid 1px #000;">&amp;bull;
+											<t t-esc="layout_category['name']"/>
+										</td>
+									</tr>
+								</t>
+								
+								<!-- Lines associated -->
+								<t t-foreach="layout_category['lines']" t-as="l">
+									<tr>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-esc="l_index + 1"/>
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<t t-esc="'%02d:%02d' % (int(l.start), l.start % 1 * 60)" />
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<t t-esc="'%02d:%02d' % (int(l.end), l.end % 1 * 60)" />
+										</td>
+										<td class="text-right" style="border: solid 1px #000;">
+											<t t-esc="'%02d:%02d' % (int(l.duration), l.duration % 1 * 60)" />
+										</td>
+									</tr>
+								</t>
+								<tr class="text-right">
+                                    <td colspan="5" class="text-right" style="border: solid 1px #000;">
+                                        <strong>Subtotal Duration : </strong>
+                                        <t t-set="subtotal" t-value="sum(line.duration for line in layout_category['lines'])"/>
+                                        <t t-esc="'%02d:%02d' % (int(subtotal), subtotal % 1 * 60)" />
+                                    </td>
+                                </tr>
+							</t>
+							
+						</tbody>
+						<tr><td style="border-left:solid 1px #000; border-bottom:solid 1px #000;"></td>
+						<td style="border-bottom:solid 1px #000;"></td>
+						<td class="text-center" style="border-bottom:solid 1px #000; font-weight: bold;">Total Duration</td><td class="text-right" style="border: solid 1px #000; font-weight: bold;">
+						<t t-esc="'%02d:%02d' % (int(doc.total_durasi), doc.total_durasi % 1 * 60)"/></td></tr>                               																	
+					</table>
+				  </t>
+				</div>
+   			</td> 
+   						<td>&#160;&#160;</td>
+                        <td>&#160;&#160;</td>
+                        <td>&#160;&#160;</td>
+   			<td> 
+   				<div style="font-weight: bold;">B. MATERIAL EQUIPMENT</div>
+                <table class="table table-condensed" style="font-size:12px;" width="100%">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:5%; border: solid 1px #000;">No</th>
+								<th class="text-center" style="width:45%; border: solid 1px #000;">Description</th>
+								<th class="text-center" style="width:30%; border: solid 1px #000;">Quantity</th>
+								<th class="text-center" style="width:20%; border: solid 1px #000;">Unit</th>
+							</tr>
+					   </thead>
+					   <tbody class="sale_tbody">
+								<!-- Lines associated -->
+								<t t-foreach="doc.material_ids" t-as="l">
+									<tr>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-esc="l_index + 1"/>
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<span t-field="l.product_id"/>
+										</td>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-field="l.product_uom"/>
+										</td>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-field="l.qty"/>
+										</td>
+									</tr>
+								</t>
+						</tbody>
+					</table>
+					<div>
+					<div style="font-weight: bold;">D. ACTIVITY</div>
+					<table class="table table-condensed" style="font-size:12px;" width="100%">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:5%; border: solid 1px #000;">No</th>
+								<th class="text-center" style="width:55%; border: solid 1px #000;">Description</th>
+								<th class="text-center" style="width:20%; border: solid 1px #000;">Plan</th>
+								<th class="text-center" style="width:20%; border: solid 1px #000;">Actual</th>
+							</tr>
+					   </thead>
+					   <tbody class="sale_tbody">
+								<!-- Lines associated -->
+								<t t-foreach="doc.activity_ids" t-as="l">
+									<tr>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-esc="l_index + 1"/>
+										</td>
+										<td class="text-left" style="border: solid 1px #000;">
+											<span t-field="l.task_id"/>
+										</td>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-field="l.plan"/>&#160;%
+										</td>
+										<td class="text-center" style="border: solid 1px #000;">
+											<span t-field="l.progres"/>&#160;%
+										</td>
+									</tr>
+								</t>
+						</tbody>
+					</table>
+				</div>
+				<div>
+					<div style="font-weight: bold;">E. PROBLEMS</div>
+					<table class="table table-condensed" style="font-size:12px;" width="100%">
+						<thead>
+							<tr>
+								<th class="text-center" style="width:5%; border: solid 1px #000;">No</th>
+								<th class="text-center" style="width:40%; border: solid 1px #000;">Problems</th>
+								<th class="text-center" style="width:55%; border: solid 1px #000;">Solutions</th>
+								
+							</tr>
+					   </thead>
+					   <tbody class="sale_tbody">
+								<!-- Lines associated -->
+								<t t-foreach="doc.issue_ids" t-as="l">
+									<tr>
+										<td t-if="l.check == False" class="text-center" style="border: solid 1px #000;">
+											<span t-if="l.check == False" t-esc="l_index + 1"/>
+										</td>
+										<td t-if="l.check == False" class="text-left" style="border: solid 1px #000;">
+											<span t-if="l.check == False" t-field="l.name"/>
+										</td>
+										<td t-if="l.check == False" class="text-left" style="border: solid 1px #000;">
+											<span t-if="l.check == False" t-field="l.solution"/>
+										</td>
+										
+									</tr>
+								</t>
+						</tbody>
+					</table>
+				</div>
+   			</td>                 
+		</table>
+            
+                </div>
+                
+                    </t>
+                </t>
+            </t>
+       
+        </template>
+
+
+                	
+    </data>
+</openerp>

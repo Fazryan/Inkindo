@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp> 
+    <data>
+        
+        <report id="project_daily_qweb_report"
+                string="Activity Photos"
+                model="project.daily"
+                report_type = "qweb-pdf"
+                file="asa_project.report_project_qweb"
+                name="asa_project.report_project_qweb"/> 
+                	
+                	
+
+<record id="paperformat_lowmargin" model="report.paperformat">
+    <field name="name">European A4 low margin</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Portrait</field>
+    <field name="margin_top">45.00</field>
+    <field name="margin_bottom">23.00</field>
+    <field name="margin_left">15.00</field>
+    <field name="margin_right">7.00</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">38</field>
+    <field name="dpi">90</field>
+</record>
+
+<record id="asa_project.project_daily_qweb_report" model="ir.actions.report.xml">
+    <field name="paperformat_id" ref="asa_project.paperformat_lowmargin"/>
+</record>
+        
+
+      <template id="report_project_qweb">
+            <t t-call="report.html_container"> 
+                <t t-foreach="docs" t-as="o"> 
+                	 
+                     <t t-call="report.external_layout">
+                        <div class="page">
+                    <!--<div class="oe_structure"/>-->
+                   
+                    <h3 class="text-center">
+                        ACTIVITY PHOTOS REPORT (<span t-field="o.name"/>)<span t-if="o.state in ['draft']"> - Draft</span>
+                    </h3>
+                    
+                    <div class="container-fluid small" style="padding:5px">
+                    <div class="row">
+                        <div class="col-xs-6" style="border-right-style:solid; border-right-color:red ">
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Client Name : </div> 
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="o.partner_id.name" />
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Location : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="o.location"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Project Name : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="o.project_id.name"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Project Description : </div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="o.description"/>
+                            <!--
+                            <div>Owner/Client Name : <span t-field="o.partner_id.name"/></div>
+                            <div>Location : <span t-field="o.location"/></div>
+                            <div>Project Name : <span t-field="o.project_id.name"/></div>
+                            <div>Project Description: <span t-field="o.description"/></div> -->
+                            
+                        </div>
+                        <div class="col-xs-6 row">
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Company :</div> 
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="o.company_id.name"/>
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Project Manager :</div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="o.project_id.user_id.name" />
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Prepared by :</div>
+                            <div class="col-xs-7 text-left"  style="padding-left:3px" t-field="o.write_uid.name" />
+                            <div class="col-xs-5 text-right" style="padding-right:5px; padding-left:3px">Report Date :</div>
+                            <div class="col-xs-7 text-left" style="padding-left:3px" t-field="o.date_daily"/>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                    </div>
+                   
+                   <br/>
+                    
+                   <!--   <div style="page-break-before:always;"></div>
+                  -->
+                    
+            
+                  
+                  
+                   <table class="table-condensed table" >
+                        
+                        <thead>
+                            <tr>
+                                <td class="text-center" style=" border: 0px solid black;">Daily Report : <span t-field="o.name"/> (<span t-field="o.date_daily"/>) </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.galery_ids" t-as="l" style="page-break-inside: avoid;">
+                       
+                            	
+                                   <td style=" border: 0px solid black;" > 
+                                        <div class="container-fluid small">
+                                            <div class="row">
+                                                
+                                            <div t-field="l.photo_id.image" t-field-options="{&quot;widget&quot;: &quot;image&quot;}" class="col-xs-7" />
+                                                 
+                                            
+                                            <div class="col-xs-5">
+                                                <strong><span t-field="l.photo_id.name"/><br/></strong>
+                                                    Task :&#160;<span t-field="l.photo_id.task_id.name"/><br/>
+                                                    Date :&#160;<span t-field="l.photo_id.picture_date"/><br/>
+                                                    Description : <br/>
+                                                    <span t-field="l.photo_id.descrip"/><br/>
+                                                    Progress Actual :&#160;<span t-if="l.progres != 0.0" t-field="l.progres"/>
+                                                    		  <span t-if="l.progres == 0.0">-</span>&#160;%<br/>
+                                            </div>
+                                            <!--<div class="col-xs-12"><span t-field="l.picture_date"/></div>-->
+                                            
+                                            </div>
+                                        </div>
+                                    </td>
+                            </tr>
+                       </tbody>
+
+                    </table>
+
+                    <!--<div class="oe_structure"/>-->
+         	   
+                </div>
+                
+                    </t>
+                </t>
+            </t>
+       
+        </template>
+    </data>
+</openerp>

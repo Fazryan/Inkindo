@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="daily_send_email" model="mail.template">
+          <field name="name">Project Daily e-mail template</field>
+          <field name="email_from">${object.company_id.email or ''}</field>
+          <field name="subject">${object.name}</field>
+          <field name="partner_to">${object.partner_id.id}</field>
+          <field name="email_to">${object.partner_id.email|safe}</field>
+          <field name="model_id" ref="asa_project.model_project_daily"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="report_template" ref="project_daily_qweb_report" />
+		  <field name="report_name">Activity Photos</field>
+		  <field name="lang">${object.partner_id.lang}</field>
+	  	  <field name="body_html">
+           <![CDATA[
+	        <p>Dear ${(object.partner_id.name)},<br><font style="font-size: 11px;">&amp; "</font><i><font style="font-size: 11px;">${object.project_id.display_name}"&nbsp;Project Related,</font></i></p><br/>
+	        <p>Herewith, we are sending you a daily report ${(object.name)} dated ${(object.date_daily)}<br/><br/></p>
+              
+             <p>Best Regards,<br/>
+              ${(object.write_uid.name)}<br/>
+              ${(object.company_id.name)}</p> 
+	    ]]>
+	  </field>
+       </record>
+    </data>
+</odoo>

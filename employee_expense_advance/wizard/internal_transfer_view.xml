@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="hr_expense_internal_transfer_view_form" model="ir.ui.view">
+            <field name="name">hr.expense.internal.transfer.wizard.form</field>
+            <field name="model">hr.expense.internal.transfer.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Payments">
+                    <sheet>
+                        <field name="id" invisible="1"/>
+                        <div class="oe_title">
+                            <h1>Draft Payment</h1>
+                        </div>
+                        <group>
+                            <group>
+                            	<field name="payment_type"/>
+                                <field name="journal_id" widget="selection"/>
+                                <field name="hide_payment_method" invisible="1"/>
+                                <field name="payment_method_id" widget="radio" attrs="{'invisible': [('hide_payment_method', '=', True)]}"/>
+                                <field name="destination_journal_id" widget="selection"/>
+                                <label for="amount"/>
+                                <div name="amount_div" class="o_row">
+                                    <field name="amount"/>
+                                    <field name="currency_id" options="{'no_create': True, 'no_open': True}" groups="base.group_multi_currency"/>
+                                </div>
+                            </group>
+                            <group>
+                                <field name="payment_date"/>
+                                <field name="communication"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string='Validate' name="internal_post_payment" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Expenses -->
+        <record id="hr_expense_internal_transfer_wizard_action" model="ir.actions.act_window">
+            <field name="name">Payments</field>
+            <field name="res_model">hr.expense.internal.transfer.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="hr_expense_internal_transfer_view_form"/>
+            <field name="target">new</field>
+            
+        </record>
+
+</odoo>

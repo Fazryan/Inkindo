@@ -1,0 +1,63 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_ta_form" model="ir.ui.view">
+            <field name="name">ta.form</field>
+            <field name="model">tenaga.ahli</field>
+            <field name="arch" type="xml">
+                <form string="Tenaga Ahli">
+                  <sheet>
+                      <group>
+                          <field name="company_id"/>
+                          <field name="partner_id"/>
+                          <!-- <field name="alamat_perusahaan"/> -->
+                          <field name="addres"/>
+                          <field name="kota"/>
+                          <field name="kode_pos"/>
+                          <field name="category"/>
+                          <field name="pendidikan_terakhir"/>
+                          <field name="thn_lulus"/>
+                          <field name="skill"/>
+                          <field name="kewarganegaraan"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_ta_tree" model="ir.ui.view">
+            <field name="name">ta.tree</field>
+            <field name="model">tenaga.ahli</field>
+            <field name="arch" type="xml">
+                <tree string="Tenaga Ahli" create='false'>
+                  <field name="company_id"/>
+                  <field name="partner_id"/>
+                  <!-- <field name="alamat_perusahaan"/> -->
+                  <field name="addres"/>
+                  <field name="kota"/>
+                  <field name="kode_pos"/>
+                  <field name="category"/>
+                  <field name="pendidikan_terakhir"/>
+                  <field name="thn_lulus"/>
+                  <field name="skill"/>
+                  <field name="kewarganegaraan"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_ta">
+        <field name="name">TENAGA AHLI</field>
+        <field name="res_model">tenaga.ahli</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <!-- <menuitem id="dipa99a_1010a" parent="membership.menu_association" sequence="6" name="DIPA-0909A-1010A"/> -->
+      <menuitem id="ta" parent="inkindo" sequence="6" action="action_ta"/>
+
+    </data>
+</openerp>

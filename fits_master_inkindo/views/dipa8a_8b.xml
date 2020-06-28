@@ -1,0 +1,59 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_pj_teknis_form" model="ir.ui.view">
+            <field name="name">pjteknis.form</field>
+            <field name="model">pj.teknis</field>
+            <field name="arch" type="xml">
+                <form string="Penanggung Jawab Teknis">
+                  <sheet>
+                      <group>
+                          <field name="company_id"/>
+                          <field name="partner_id"/>
+                          <!-- <field name="alamat_perusahaan"/> -->
+                          <field name="addres"/>
+                          <field name="kota"/>
+                          <field name="kode_pos"/>
+                          <field name="no_surat_penetepan"/>
+                          <field name="tgl_penetapan"/>
+                          <field name="pendidikan_terakhir"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_pj_teknis_tree" model="ir.ui.view">
+            <field name="name">pjteknis.tree</field>
+            <field name="model">pj.teknis</field>
+            <field name="arch" type="xml">
+                <tree string="Penanggung Jawab Teknis" create='false'>
+                  <field name="company_id"/>
+                  <field name="partner_id"/>
+                  <!-- <field name="alamat_perusahaan"/> -->
+                  <field name="addres"/>
+                  <field name="kota"/>
+                  <field name="kode_pos"/>
+                  <field name="no_surat_penetepan"/>
+                  <field name="tgl_penetapan"/>
+                  <field name="pendidikan_terakhir"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_pj_teknis">
+        <field name="name">PJ TEKNIS</field>
+        <field name="res_model">pj.teknis</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <!-- <menuitem id="dipa8a8b" parent="membership.menu_association" sequence="5" name="DIPA-08A-08B"/> -->
+      <menuitem id="pj_teknis" parent="inkindo" sequence="5" action="action_pj_teknis"/>
+
+    </data>
+</openerp>

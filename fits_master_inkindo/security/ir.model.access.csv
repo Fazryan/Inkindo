@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_akte_perusahaan,access_akte_perusahaan,model_akte_perusahaan,,1,1,1,1
+access_asset,access_asset,model_asset,,1,1,1,1
+access_office,access_office,model_office,,1,1,1,1
+access_recommendation,access_recommendation,model_recommendation,,1,1,1,1
+access_subbidang,access_subbidang,model_subbidang,,1,1,1,1
+access_master_subbidang,access_master_subbidang,model_master_subbidang,,1,1,1,1
+access_owner,access_owner,model_owner,,1,1,1,1
+access_tenaga_administrasi_tetap,access_tenaga_administrasi_tetap,model_tenaga_administrasi_tetap,,1,1,1,1
+access_pj_teknis,access_pj_teknis,model_pj_teknis,,1,1,1,1
+access_tenaga_ahli,access_tenaga_ahli,model_tenaga_ahli,,1,1,1,1
+access_dokumen_perusahaan,access_dokumen_perusahaan,model_dokumen_perusahaan,,1,1,1,1
+access_edu_background,access_edu_background,model_edu_background,,1,1,1,1
+access_sector,access_sector,model_sector,,1,1,1,1
+access_classification,access_classification,model_classification,,1,1,1,1

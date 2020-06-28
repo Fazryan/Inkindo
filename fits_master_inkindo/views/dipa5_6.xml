@@ -1,0 +1,55 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_owner_form" model="ir.ui.view">
+            <field name="name">owner.form</field>
+            <field name="model">owner</field>
+            <field name="arch" type="xml">
+                <form string="Owner Form">
+                  <sheet>
+                      <group>
+                          <field name="partner_id"/>
+                          <field name="addres"/>
+                          <field name="citizenship"/>
+                          <field name="pemilik_saham_rp"/>
+                          <field name="pemilik_saham_persen"/>
+                          <field name="position"/>
+                          <field name="keterangan"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_owner_tree" model="ir.ui.view">
+            <field name="name">owner.tree</field>
+            <field name="model">owner</field>
+            <field name="arch" type="xml">
+                <tree string="Owner Tree" create='false'>
+                  <field name="partner_id"/>
+                  <field name="addres"/>
+                  <field name="citizenship"/>
+                  <field name="pemilik_saham_rp"/>
+                  <field name="pemilik_saham_persen"/>
+                  <field name="position"/>
+                  <field name="keterangan"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_owner">
+        <field name="name">PEMILIK DAN PENGURUS</field>
+        <field name="res_model">owner</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <!-- <menuitem id="dipa56" parent="membership.menu_association" sequence="3" name="DIPA-05-06"/> -->
+      <menuitem id="owner" parent="inkindo" sequence="3" action="action_owner"/>
+
+    </data>
+</openerp>

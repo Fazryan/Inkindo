@@ -1,0 +1,39 @@
+<openerp>
+  <data>
+  	
+    <record id="view_hr_payslip_form_extend" model="ir.ui.view">
+      <field name="name">Timesheet View on Payroll</field>
+      <field name="model">hr.payslip</field>
+      <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+      <field name="arch" type="xml">
+      	<button name="compute_sheet" position="after">
+      		<button string="Recompute" name="recompute_timeatt" type="object" states="draft" class="oe_highlight"/>
+      	</button>
+      	<button string="Compute Sheet" name="compute_sheet" type="object" states="draft" class="oe_highlight"/>
+       <xpath expr="/form/sheet/notebook/page[1]/separator[1]" position="before">
+        <group string="Timesheet &amp; Attendance Input">
+	        <group>
+	          <field name="hours_timesheet"/>
+	          <field name="hours_attendance"/>
+              <field name="hours_difference"/>
+              <field name="hari_calendar"/>          
+	          <field name="kehadiran"/>
+	          <field name="site_office"/>
+	          <field name="workday"/>
+	         </group>
+	         <group>
+	           <field name="holiday"/> 
+	           <field name="leave"/>
+	           <field name="unapproved"/>
+	           <field name="terlambat"/>
+	           <field name="lbh_awal"/>
+	          <field name="no_checkout"/>
+	          <field name="half_time"/>
+	       </group>
+       </group>   
+       </xpath>
+      </field>
+    </record>
+    
+  </data>
+</openerp>

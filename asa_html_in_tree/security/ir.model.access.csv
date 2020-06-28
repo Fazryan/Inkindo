@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_asa_html_in_tree_asa_html_in_tree,asa_html_in_tree.asa_html_in_tree,model_asa_html_in_tree_asa_html_in_tree,,1,0,0,0

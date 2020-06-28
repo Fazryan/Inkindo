@@ -1,0 +1,25 @@
+# -*- coding: utf-8 -*-
+{
+    "name": "Project - Management Construction",
+    "version": "1.03",
+    "author": "Fits! Team - by PT. Fujicon Priangan Perdana",
+    "license": "",
+    "category": "Project",
+    "website": "http://fujicon-japan.com",
+    "depends": ["project","base","mail","project_issue","hr_timesheet"],
+    "data": ['security/ir.model.access.csv',
+             'views/project_view.xml',
+             'views/report_daily.xml',
+             'views/daily_construction_report.xml',
+             'views/task_view.xml',
+             'views/project_meeting_view.xml',
+             'views/meeting_report.xml',
+             'views/report_photo_const.xml',
+             'views/report_project.xml',
+             'views/template_mail_const.xml',
+             'views/template_email.xml',
+             'views/template_mail_meeting.xml'
+             ],
+    'installable': True,
+    'auto_install': False,
+}

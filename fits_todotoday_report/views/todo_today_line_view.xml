@@ -1,0 +1,83 @@
+<openerp>
+    <data>
+       <record id="view_todo_today_line_form" model="ir.ui.view">
+            <field name="name">todo.today.line.form</field>
+            <field name="model">todo.today.line</field>
+            <field name="arch" type="xml">
+                <form string="To do Today" create="false">
+                	<header>
+                		<button name="%(action_view_todo_report)d" string="Start To do" type="action" states="unreport" class="oe_highlight"/>
+				        <button name="%(action_view_finish_todo)d" string="Finish To do" type="action" states="start" class="oe_highlight"/>
+				        <button name="%(action_view_cancel_report)d" string="Cancel To do" type="action" states="start" class="oe_highlight"/>
+                  		<field name="state" widget="statusbar" statusbar_visible="draft,unreport,start,finish"/>
+                	</header>
+                  <sheet>
+                  	<group>
+				        <field name="project_id"/>
+				        <field name="task_id" domain="[('project_id', '=', project_id)]"/>
+				        <field name="stage"/>
+				        <field name="desc" />
+				        <field name="duration" widget="float_time"/>
+				        <field name="employee_id"/>
+				        <field name="date"/>
+				    </group>    
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+       <record id="view_todo_today_line_tree" model="ir.ui.view">
+            <field name="name">todo.today.line.tree</field>
+            <field name="model">todo.today.line</field>
+            <field name="arch" type="xml">
+                <tree string="To do Today Line" create="false">
+                	<field name="project_id"/>
+				    <field name="task_id"/>
+				    <field name="stage"/>
+				    <field name="desc" invisible="1"/>
+				    <field name="duration"/>
+				    <field name="employee_id"/>
+				    <field name="date"/>
+				    <field name="state"/>
+				    <button name="%(action_view_todo_report)d" string="Start To do" type="action" states="unreport" class="oe_highlight"/>
+				    <button name="%(action_view_finish_todo)d" string="Finish To do" type="action" states="start" class="oe_highlight"/> 
+				    <button name="%(action_view_cancel_report)d" string="Cancel To do" type="action" states="start" class="oe_highlight"/>  
+                </tree>
+            </field>
+        </record>
+        
+        <!-- FILTERS  -->
+		<record model="ir.ui.view" id="hr_todo_line_search">
+    		<field name="name">To do Today Line Search</field>
+    		<field name="model">todo.today.line</field>
+    		<field name="arch" type="xml">
+        		<search string="Search To do Today Line">
+            		 <filter icon="terp-mail-message-new" string="My To do Line" name="my_todo_line_filter" domain="[('employee_id','=',uid)]"/>
+           		 <separator/>
+           		      <filter name="today" string="Today" domain="[('date','=',current_date)]"/>
+            	<separator/>
+            	<group expand="0" string="Group By...">
+                	<filter string="Employee" domain="[]" context="{'group_by' : 'employee_id'}" />
+            	</group>
+        		</search>
+    		</field>
+		</record>
+        
+       <record model="ir.actions.act_window" id="action_todo_line">
+	    	<field name="name">To do Today Line</field>
+	    	<field name="res_model">todo.today.line</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+	    	<field name="domain">[('state','!=','draft')]</field>
+	    	<field name="context">{'search_default_my_todo_line_filter':1, 'search_default_today':1}</field>
+		</record>
+		
+
+    	<menuitem id="menu_todo_line"
+            name="To do Today Line"  
+            action="action_todo_line"
+            parent="add_todo_today" 
+            sequence="2"/>	
+        
+    </data>
+</openerp>

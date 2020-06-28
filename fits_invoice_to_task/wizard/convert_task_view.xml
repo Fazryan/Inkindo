@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_convert_task_form" model="ir.ui.view">
+            <field name="name">convert.task.form</field>
+            <field name="model">convert.task</field>
+            <field name="arch" type="xml">
+                <form string="Convert Invoice Line to Task">
+                <group>
+                    <field name="name"/>
+                	<field name="partner_id"/>
+                	<field name="invoice_id" invisible="1"/>
+                	<field name="invoice_line" invisible="1"/>            
+                 </group>
+                 <field name="convert_task_ids">
+	                 <tree create="false" edit="false">
+	                 	 <field name="invoice_line_id" readonly = "1"  invisible="1"/>
+	                     <field name="product"/>
+	                 </tree>
+	                 <form create="false" edit="false">
+	                 	<group>
+	                 	 	<field name="invoice_line_id"/>
+	                    </group> 
+	                 </form>            
+             	</field>
+                    <footer>
+                        <button name="convert_task" string="_Convert" type="object" class="btn-primary"/>
+                        <button string="_Cancel" class="btn-default" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+
+        <record id="action_view_convert_task" model="ir.actions.act_window">
+            <field name="name">Convert to Task</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">convert.task</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_convert_task_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
+

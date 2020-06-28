@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fits_custom_membership_fits_custom_membership,fits_custom_membership.fits_custom_membership,model_fits_custom_membership_fits_custom_membership,,1,0,0,0

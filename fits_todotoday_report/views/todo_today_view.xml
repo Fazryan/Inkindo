@@ -1,0 +1,232 @@
+<openerp>
+    <data>
+       <record id="view_todo_today_form" model="ir.ui.view">
+            <field name="name">todo.today.form</field>
+            <field name="model">todo.today</field>
+            <field name="arch" type="xml">
+                <form string="To do Today">
+                  <sheet>
+                  	<div id="status_att">
+                            <field name="att_state" widget="hr_attendance_form_presence_indicator"/>
+                    </div>
+                    <div class="oe_button_box">
+		                <button class="oe_stat_button" name="task_tobe_view" type="object" icon="fa-tasks">
+		                    <field string="To be Done" name="task_to_be" widget="statinfo"/>
+		                </button>
+		                
+		                <button class="oe_stat_button" name="task_waiting_view" type="object" icon="fa-tasks">
+		                    <field string="Awaiting" name="task_wait" widget="statinfo"/>
+		                </button>
+		            </div>
+                  	<group>
+                      <group>
+                        <field name="employee_id" readonly = "1"/>
+                        <field name="manager_id"/>
+                        <field name="coach_id"/>
+                        <field name="date"/>
+                        <field name="employee" invisible ="1"/>
+                        <field name="date_valid" invisible ="1"/>
+                        <field name="company_id"/>
+                       </group>
+                       <group>
+                        	
+                       </group>
+                      </group>
+                    <notebook>
+                         <page string="To do Today Line">
+                            <field name="today_line_ids" nolabel="1">    
+                         		<form string="Today Line">
+                         			<header>
+				                		<button name="%(action_view_todo_report)d" string="Start" type="action" states="draft" class="oe_highlight"/>
+								        <button name="%(action_view_finish_todo)d" string="Finish" type="action" states="start" class="oe_highlight"/>
+								        <button name="%(action_view_cancel_report)d" string="Cancel" type="action" states="start" class="oe_highlight"/>
+				                  		<field name="state" widget="statusbar" statusbar_visible="draft,start,cancel,finish"/>
+				                	</header>
+				                  	<sheet>
+				                		<group>
+						        			<field name="project_id" attrs="{'readonly': [('state', 'in', ['start', 'finish','cancel'])]}"  options="{'no_quick_create': True }"/>
+						        			<field name="pm"/>
+						        			<field name="task_id" domain="[('project_id', '=', project_id)]" attrs="{'readonly': [('state', 'in', ['start', 'finish','cancel'])]}"
+						        			       options="{'no_quick_create': True }" />
+						        			<field name="stage"/>
+						        			<field name="desc" attrs="{'readonly': [('state', 'in', ['start', 'finish','cancel'])]}"/>
+						        			<field name="duration" widget="float_time" attrs="{'readonly': [('state', 'in', ['start', 'finish','cancel'])]}"/>
+				        				</group> 
+				        			</sheet>   
+				        		</form>
+                                <tree string="Today Line">
+                                	<field name="sequence" widget="handle"/>
+                                    <field name="project_id"/>
+                                    <field name="pm"/>
+								    <field name="task_id" widget="many2one_clickable"/>
+								    <field name="stage"/>
+								    <field name="desc" invisible="0"/>
+								    <field name="duration" widget="float_time" sum = "Total Duration"/>
+								    <field name="employee_id" invisible="1"/>
+								    <field name="date" invisible="1"/>
+								    <field name="start_date"/>
+								    <field name="finish_date"/>
+								    <field name="cancel_date"/>
+								    <button name="%(action_view_todo_report)d" string="Click here when START" type="action" states="draft" class="oe_highlight"/>
+								    <button name="%(action_view_finish_todo)d" string="Click here when FINISH" type="action" states="start" class="oe_highlight"/>
+								    <button name="%(action_view_cancel_report)d" string="Click here to CANCEL" type="action" states="start" class="oe_highlight"/>  
+								    <field name="state" nolabel="1" attrs="{'invisible': [('state', 'not in', ['finish','cancel'])]}"/>
+                              </tree> 
+                          </field>  
+                        </page>
+                        <page string="Timesheet">
+                        	<field name="timesheet_ids"  domain="[('todo_id', '=', parent.id)]" readonly = "1">  
+		                        <tree>
+		                            <field name="project_id"/>
+		                            <field name="task_id"/>
+		                            <field name="name"/>
+		                            <field name="unit_amount" string="Duration" widget="float_time"/>
+		                            <field name="todo_id" invisible="1"/>
+		                        </tree>
+                    		</field>   
+                        </page>
+                    	<page string="Attendances">
+                    		<group>
+                        		<field name="attendance" widget="float_time" string = 'Last Duration'/>
+                        		<field name="first_sign_in"/>
+                        		<!--field name="last_sign_in"/-->
+                        		<field name="last_sign_out"/>
+                        		<!--field name="att_onprogres" widget="float_time"/-->
+                        		<!--field name="tot_att" widget="float_time"/-->
+                        	</group>
+                    	</page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" />
+                 </div>
+                </form>
+            </field>
+        </record>
+        
+       <record id="view_todo_today_tree" model="ir.ui.view">
+            <field name="name">todo.today.tree</field>
+            <field name="model">todo.today</field>
+            <field name="arch" type="xml">
+                <tree string="To do Today">
+                	<!--field name="att_state" widget="hr_attendance_form_presence_indicator"/-->
+                	<field name="employee_id" />
+                	<field name="manager_id"/>
+                    <field name="coach_id"/>
+                	<field name="total_durasi" widget="float_time"/>
+                    <field name="date"/>     
+                </tree>
+            </field>
+        </record>
+        
+        <record id="kanban_view_tootoday" model="ir.ui.view">
+        <field name="name">todo.today.kanban</field>
+        <field name="model">todo.today</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <kanban class="oe_background_grey o_kanban_dashboard o_project_kanban">
+            	 <field name="total_durasi"/>
+            	 <field name="total_task"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_project_kanban_main">
+                                   
+                                        <div class="o_kanban_primary_left">
+                                            
+                                            <div id="row">
+							                    <div class="col-xs-1" style="padding:0px">
+							                        <field name="att_state" widget="hr_attendance_kanban_presence_indicator"/>
+							                    </div>
+							                    <div class="col-xs-12" style="padding:0px">
+							                       <strong>
+							                          <field name="employee"/>
+							                       </strong>  
+							                          <br/>Date : <field name="date"/>
+							                          <br/>First Sign In  : <field name="first_sign_in"/>
+							                          <br/>Last Sign Out : <field name="last_sign_out"/>
+							                          <br/>Total Duration : <field name="attendance" widget="float_time"/>
+							                    </div>   
+								            </div>  
+                                        </div>
+                                   
+
+                                   
+                                </div>
+
+                                <div class="o_project_kanban_boxes">
+                                    <div class="o_project_kanban_box">
+                                    	<span class="o_value"><t t-raw="record.total_task.raw_value"/></span>
+                                        <span class="o_label">Tasks</span>
+                                    </div>
+                                    <div class="o_project_kanban_box">
+                                            <span class="o_value"><t t-raw="record.total_durasi.raw_value"/></span>
+                                            <span class="o_label">Hours</span>
+           
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+
+        </field>
+    </record>
+        
+        
+        <!-- FILTERS  -->
+		<record model="ir.ui.view" id="hr_todo_today_search">
+    		<field name="name">To do Today Search</field>
+    		<field name="model">todo.today</field>
+    		<field name="arch" type="xml">
+        		<search string="Search To do Today">
+            		 <filter string="My To do" name="my_todo" domain="[('employee_id','=',uid),]"/>
+                     <field name="employee"/>
+            	<separator/>	 
+           		     <filter name="today" string="Today" 
+           		       domain="[('date','&gt;=', datetime.datetime.combine(context_today(),datetime.time(23,59,59)))]"/>
+           		     <filter name="yesterday" string="Yesterday" 
+           		       domain="[('date','&lt;=',(datetime.date.today()-datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 23:59:59')),('date','&gt;=',(datetime.date.today()-datetime.timedelta(days=1)).strftime('%%Y-%%m-%%d 00:00:00'))]"/>
+            	<separator/>
+            	<group expand="0" string="Group By...">
+                	<filter string="Employee" domain="[]" context="{'group_by' : 'employee_id'}" />
+                	<filter string="Manager" domain="[]" context="{'group_by' : 'manager_id'}" />
+                	<filter string="Coach" domain="[]" context="{'group_by' : 'coach_id'}" />
+            	</group>
+        		</search>
+    		</field>
+		</record>
+        
+       <record model="ir.actions.act_window" id="action_todo">
+	    	<field name="name">To do Today</field>
+	    	<field name="res_model">todo.today</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">kanban,tree,form</field>
+	    	<field name="context">{'search_default_today':1}</field>
+	    	<!--field name="context">{ }</field-->
+		</record>
+		
+        
+        <menuitem id="add_todo_today" 
+        	parent="hr_attendance.menu_hr_attendance_root" 
+        	sequence="18" 
+        	name="To do Today"/>	
+
+    	<menuitem id="menu_todo_today"
+            name="To do Today"  
+            action="action_todo"
+            parent="add_todo_today" 
+            sequence="1"/>	
+            	
+    	<menuitem id="menu_todo" name="To do Today"
+            parent="project.menu_main_pm" sequence="100"/>    
+		
+		<menuitem id="submenu_todo_today"
+            name="To do Today"
+            action="action_todo"
+            parent="menu_todo" 
+            sequence="1"/>  
+        
+    </data>
+</openerp>

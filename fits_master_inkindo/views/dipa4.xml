@@ -1,0 +1,116 @@
+<openerp>
+    <data>
+
+      <record id="view_mastersubbidang_form" model="ir.ui.view">
+            <field name="name">master.subbidang.form</field>
+            <field name="model">master.subbidang</field>
+            <field name="arch" type="xml">
+                <form string="Master Subbidang Form">
+                  <sheet>
+                      <group>
+                          <field name="bidang"/>
+                          <field name="subbidang"/>
+                          <field name="sector_id"/>
+                          <field name="kode_sb" style="width:20%%"/>
+                       </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_mastersubbidang_tree" model="ir.ui.view">
+            <field name="name">master.subbidang.tree</field>
+            <field name="model">master.subbidang</field>
+            <field name="arch" type="xml">
+                <tree string="Master Subbidang Tree">
+                  <field name="kode_sb"/>
+                  <field name="bidang"/>
+                  <field name="subbidang"/>
+                  <field name="sector_id"/>
+                </tree>
+            </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="action_mastersubbidang">
+        <field name="name">Master Subbidang Layanan</field>
+        <field name="res_model">master.subbidang</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+
+      <record id="view_subbidang_form" model="ir.ui.view">
+            <field name="name">subbidang.form</field>
+            <field name="model">subbidang</field>
+            <field name="arch" type="xml">
+                <form string="Subbidang Form">
+                  <sheet>
+                      <group>
+                          <field name="partner_id" invisible="0"/>
+                          <field name="kode_sb"/>
+                          <field name="bidang"/>
+                          <field name="subbidang"/>
+                          <field name="start_date"/>
+                          <field name="end_date"/>
+                          <field name="sector_id"/>
+                          <field name="classification_id"/>
+                          <!-- field name="pjt_id"/-->
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                       </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_subbidang_tree" model="ir.ui.view">
+            <field name="name">subbidang.tree</field>
+            <field name="model">subbidang</field>
+            <field name="arch" type="xml">
+                <tree string="Subbidang Tree" editable="bottom">
+                  <field name="partner_id" invisible="0"/>
+                  <field name="kode_sb"/>
+                  <field name="bidang"/>
+                  <field name="subbidang"/>
+                  <field name="sector_id"/>
+                  <field name="start_date"/>
+                  <field name="end_date"/>
+                  <field name="classification_id"/>
+                  <field name="pjt_id" domain="[('parent_id', '=', partner_id)]"/> <!-- domain="[('parent_id','!=',False),('child_ids','=',parent)]" -->
+                  <field name="attachment_ids" widget="many2many_binary"/>
+          
+                  <!-- "[('parent_id','!=',False),('name','=',True)]" -->
+                </tree>
+            </field>
+      </record>
+
+      <record model="ir.actions.act_window" id="action_subbidang_active">
+        <field name="name">SUBBIDANG LAYANAN</field>
+        <field name="res_model">subbidang</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'search_default_partner_id': active_id}</field>
+      </record>
+
+      <record model="ir.actions.act_window" id="action_subbidang">
+        <field name="name">SUBBIDANG LAYANAN</field>
+        <field name="res_model">subbidang</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+
+      <record id="view_sub_layanan_filter" model="ir.ui.view">
+            <field name="name">sub.layanan.list.select</field>
+            <field name="model">subbidang</field>
+            <field name="arch" type="xml">
+                <search string="Search Subbidang Layanan">
+                    <field name="partner_id" operator="child_of"/>
+               </search>
+            </field>
+        </record>
+
+
+      
+      <!-- <menuitem id="dipa4" parent="membership.menu_association" sequence="2" name="DIPA-04"/> -->
+      <menuitem id="menu_subbidang" parent="inkindo" sequence="2" action="action_subbidang"/>
+      <menuitem id="menu_mastersubbidang" parent="master" sequence="2" action="action_mastersubbidang"/>
+    </data>
+</openerp>

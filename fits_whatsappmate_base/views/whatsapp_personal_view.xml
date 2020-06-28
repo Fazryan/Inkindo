@@ -1,0 +1,50 @@
+<openerp>
+    <data>
+       <record id="view_whatsapp_personal_form" model="ir.ui.view">
+            <field name="name">whatsapp.personal.view.form</field>
+            <field name="model">whatsapp.personal</field>
+            <field name="arch" type="xml">
+                <form string="Send">
+                  <header>
+                    <button name="send_wa_personal" string="Send WA" type="object"/>
+                    <button name="send_wa_personal_log" string="Send WA Log" type="object"/>
+                </header>
+                  <sheet>
+                  	<group>
+                      <group>
+                      	<field name="type_api"/>
+                        <field name="group_admin" placeholder="e.g. 628112345678"/>
+                        <field name="message"/>
+                       </group>
+                       <group>
+                        
+                       </group>
+                      </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+         <record id="view_whatsapp_personal_tree" model="ir.ui.view">
+            <field name="name">whatsapp.personal.view.tree</field>
+            <field name="model">whatsapp.personal</field>
+            <field name="arch" type="xml">
+                <tree string="Whatsapp Personal">
+                	   <field name="group_admin"/>
+                       <field name="message"/>
+                </tree>
+            </field>
+      </record>
+        
+        
+       <record model="ir.actions.act_window" id="action_whatsapp_personal">
+	    	<field name="name">Whatsapp</field>
+	    	<field name="res_model">whatsapp.personal</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+		</record>
+		
+	    <menuitem id="send_personal_menu" name="Send Whatsapp Personal" parent="whatsapp_menu" action="action_whatsapp_personal" sequence="2"/>
+        
+    </data>
+</openerp>

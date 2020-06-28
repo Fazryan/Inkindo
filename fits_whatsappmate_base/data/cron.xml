@@ -1,0 +1,18 @@
+<openerp>
+    <data>
+        <!-- scheduler : send WhatsApp -->
+        <record forcecreate="True" model="ir.cron" id="send_log_wa">
+            <field name="name">Process send WhatsApp Log</field>
+            <field name="active">True</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'log.wa'"/>
+            <field name="function" eval="'send_wa_log'"/>
+            <field name="args" eval="'()'"/>
+        </record>    
+           
+    </data>
+</openerp>

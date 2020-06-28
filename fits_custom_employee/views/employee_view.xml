@@ -1,0 +1,48 @@
+<openerp>
+    <data>
+        
+    	<record id="view_employee_form_inherit_custom" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.custom</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="sale_timesheet.hr_timesheet_employee_extd_form"/>
+            <field name="arch" type="xml">
+                <field name="timesheet_cost" position="replace">
+                      <field name="timesheet_cost" required = "1"/>
+                </field>
+                
+            </field>
+        </record>
+        
+        <record id="view_employee_form_inherit_custom2" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit.custom2</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="work_email" position="replace">
+                      <field name="work_email" widget="email" required = "1"/>
+                </field>
+                <field name="parent_id" position="replace">
+                      <field name="parent_id" required = "0"/>
+                </field>
+                <field name="coach_id" position="replace">
+                      <field name="coach_id" required = "0"/>
+                </field>
+            </field>
+        </record>
+        
+        <record id="view_partner_form_inherit_custom" model="ir.ui.view">
+            <field name="name">hr.partner.form.inherit.custom</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="title" position="replace"></field>
+                <field name="company_type" position="after">
+                      <field name="title" attrs="{'invisible':[('company_type', '=', 'company')],'required':[('company_type', '=', 'person')]}"/>
+                </field>
+            </field>
+        </record>
+        
+        
+        
+    </data>
+</openerp>

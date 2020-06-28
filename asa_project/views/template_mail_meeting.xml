@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="meeting_send_email" model="mail.template">
+          <field name="name">MoM e-mail template</field>
+          <field name="email_from">${object.company_id.email or ''}</field>
+          <field name="subject">${object.name}</field>
+          <field name="partner_to">${object.owner_id.id}</field>
+          <field name="email_to">${object.owner_id.email|safe}</field>
+          <field name="model_id" ref="asa_project.model_project_meeting"/>
+          <field name="auto_delete" eval="True"/>
+          <field name="report_template" ref="meeting_qweb_report" />
+		  <field name="report_name">Minutes of Meeting</field>
+	  	  <field name="body_html">
+          <![CDATA[
+	      	<p>Dear ${(object.owner_id.name)},<br/><i><font style="font-size: 11px;">${object.project_id.display_name}"&nbsp;Project Related,</font></i></p><br>
+	      	<p>Herewith, we are sending you a Minutes of Meeting report ${(object.name)}<br/><br/></p>
+              
+             <p>Best Regards,<br/>
+              ${(object.write_uid.name)}<br/>
+              ${(object.company_id.name)}</p> 
+	    ]]>
+	  </field>
+       </record>
+    </data>
+</odoo>

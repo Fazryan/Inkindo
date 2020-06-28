@@ -1,0 +1,14 @@
+<openerp>
+    <data>
+        <record id="view_invoice_task_inherit_form" model="ir.ui.view">
+            <field name="name">invoice.task.form.view.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="before">
+                    <field name="invoice_line_id" string="Invoice Line"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

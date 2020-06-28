@@ -1,0 +1,58 @@
+<openerp>
+  <data>
+  	
+      <record id="view_konf_form" model="ir.ui.view">
+            <field name="name">konf.form</field>
+            <field name="model">whatsapp.konf</field>
+            <field name="arch" type="xml">
+                <form string="Konfigurasi Form">
+                  	<group>
+	                    <group>
+	                    	<field name="type_api"/>
+	                        <field name="instance_id" attrs="{'invisible':[('type_api', '==', 'wablas')]}"/>
+	                        <field name="client_id" attrs="{'invisible':[('type_api', '==', 'wablas')]}"/>
+	                        <field name="client_scret" attrs="{'invisible':[('type_api', '==', 'wablas')]}"/>
+	                        <field name="token" attrs="{'invisible':[('type_api', '==', 'whatsmate')]}"/>
+	                        <field name="aktif"/>
+	                     </group>
+	                    <group>
+                           
+                        </group>
+                      </group>
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_konf_tree" model="ir.ui.view">
+            <field name="name">konf.tree</field>
+            <field name="model">whatsapp.konf</field>
+            <field name="arch" type="xml">
+                <tree string="Konfigurasi Tree">
+                	 <field name="type_api"/>
+                	 <field name="aktif"/>
+                </tree>
+            </field>
+      </record>
+
+
+
+      <record model="ir.actions.act_window" id="action_konf">
+        <field name="name">Account WhatsApp</field>
+        <field name="res_model">whatsapp.konf</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+      </record>
+		
+	    <menuitem id="menu_konfigurasi"
+                  parent="main_whatsapp_menu"
+	     		  name="Setting"  
+                  sequence="2"/>  
+                  	
+        <menuitem id="menu_account"
+                  parent="menu_konfigurasi"   
+                  sequence="1"
+                  action="action_konf"/> 
+  
+
+   </data>
+</openerp>

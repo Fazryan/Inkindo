@@ -1,0 +1,326 @@
+<openerp>
+  <data>
+  	
+  	<record id="view_daily_form" model="ir.ui.view">
+            <field name="name">project.daily.form</field>
+            <field name="model">project.daily</field>
+            <field name="arch" type="xml">
+                <form string="Daily Report">
+                <header>
+                    <button name="action_sent" states="validate" string="Send by Email Activity Photos" type="object" groups="project.group_project_manager" />
+                    <button name="action_sent" states="sent" string="Resend Email Activity Photos" type="object" groups="project.group_project_manager"/>
+                    <button name="action_sent_const" states="validate" string="Send by Email Daily Report" type="object" groups="project.group_project_manager" />
+                    <button name="action_sent_const" states="sent" string="Resend Email Daily Report" type="object" groups="project.group_project_manager"/>
+                    <button name="action_valid" states="draft" type="object" string="Validate"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,validate,sent"/>
+                </header>
+                    <sheet>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="name"/>
+                            <field name="date_daily"/>
+                            <label for="date_from" string="Work Hour"/>
+                            <div>
+                            <field name="start_time_jam" class="oe_inline"/> : <field name="start_time_menit" class="oe_inline"/> - 
+                            <field name="end_time_jam" class="oe_inline"/> : <field name="end_time_menit" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group>
+                        	<field name="partner_id"/>
+                            <field name="location"/>
+                            <field name="company_id"/>
+                            <field name="description"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Galery">
+                            <field name="galery_ids" nolabel="1"  >
+                                <tree string="Galery" editable="bottom">
+                                	<field name="sequence" widget="handle"/>
+                                    <field name="photo_id" domain="[('project_id', '=', parent.project_id)]"
+                                                context="{'default_project_id': parent.project_id}"/>
+        							<field name="descrip"/>
+        							<field name="date"/>
+        							<field name="project_id" />
+        			                <field name="task_id" />
+        			                <field name="plan" invisible="1"/>
+        			                <field name="progres"/>
+                               
+                              </tree> 
+                          </field>   
+                        </page>
+                        <page string="Manpower">
+                            <field name="manpower_ids" nolabel="1"  >
+                                <tree string="Manpower" editable="bottom">
+                                	<field name="sequence" widget="handle"/>
+        							<field name="designation_id"/>
+        			                <field name="partner_id" domain="[('is_company', '=', False)]"  />
+        							<field name="parent_id"/>
+        							<field name="person"/>
+                              </tree> 
+                          </field>   
+                           <group class="oe_subtotal_footer oe_right" colspan="2" name="grand_total">
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="total_person"  />
+                                </div>
+                                <field name="total_person" nolabel="1" class="oe_subtotal_footer_separator" />
+                            </group>
+                        </page>
+                        <page string="Material Equipment">
+                            <field name="material_ids" nolabel="1"  >
+                                <tree string="Material Equipment" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+        							<field name="product_id"/>
+        			                <field name="qty" />
+        							<field name="product_uom"/>
+                               
+                              </tree> 
+                          </field>   
+                        </page>
+                        <page string="Activity">
+                            <field name="activity_ids" nolabel="1" >
+                                <tree string="Activity" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+        							<field name="task_id" domain="[('project_id', '=', parent.project_id)]"
+        							   options="{'no_create_edit': True}"/>
+        							<field name="plan"/>
+        			                <field name="progres"/>
+                               
+                              </tree> 
+                          </field>   
+                        </page>
+                        <page string="Problem">
+                            <field name="issue_ids" nolabel="1"  >
+                                <tree string="Problem" editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+        							<field name="name" style="width:30%%"/>
+        			                <field name="solution" style="width:60%%" />
+                                    <field name="check"  style="width:10%%" />
+                              </tree> 
+                               <form string="Problem">
+                              	<header>
+                    				<button name="action_convert" string="Convert To Issues" type="object" 
+                    				  attrs="{'invisible': [('issue_id', '!=', False)]}"  class="btn-primary"/> 
+                    			</header>
+                				<sheet>
+                				  <group>
+        							<field name="name"/>
+        							<field name="solution"/>
+        							<field name="issue_id"/>
+        						  </group>
+        						</sheet>
+                              </form> 
+                          </field>   
+                        </page>
+                        <page string="Weather">
+                            <field name="weather_ids" nolabel="1">
+                                <form string="Weather">
+				                <group>
+				                	 <label for="start_time_jam" string="Start Time"/>
+                        			 <div>
+                                     <field name="start_time_jam" class="oe_inline"/> : <field name="start_time_menit" class="oe_inline"/>
+                                     </div>
+                                     <label for="end_time_jam" string="End Time"/>
+                        			 <div>
+                                     <field name="end_time_jam" class="oe_inline"/> : <field name="end_time_menit" class="oe_inline"/>
+                                     </div>
+				        			<field name="duration" widget="float_time"/>
+				        			<field name="categ_weather_id"/>
+				        			<field name="start" widget="float_time" invisible="1" />
+				        			<field name="end" widget="float_time" invisible="1"/>
+				        		</group>    
+				              
+				        		</form>
+                                <tree string="Weather">
+                                   <field name="sequence" widget="handle"/>
+                                   <field name="start" widget="float_time"/>
+				        		   <field name="end" widget="float_time"/>
+				        		   <field name="duration" widget="float_time"/>
+				        		   <field name="categ_weather_id"/>
+				        		  
+                              </tree> 
+                          </field>  
+                          <group class="oe_subtotal_footer oe_right" colspan="2" name="grand_total">
+                                <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                    <label for="total_durasi"  />
+                                </div>
+                                <field name="total_durasi" widget="float_time" nolabel="1" class="oe_subtotal_footer_separator" />
+                            </group> 
+                        </page>
+                        <page string="Notes">
+                            <field name="notes" nolabel="1">
+                          </field>   
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+        
+       <record id="view_daily_tree" model="ir.ui.view">
+            <field name="name">project.daily.tree</field>
+            <field name="model">project.daily</field>
+            <field name="arch" type="xml">
+                <tree string="Daily Report">
+                	<field name="name"/>
+	                <field name="project_id"/>
+	                <field name="date_daily"/>
+	                <field name="partner_id"/>
+                    <!--field name="location"/>
+                    <field name="company_id"/>
+                    <field name="description"/-->        
+                </tree>
+            </field>
+        </record>
+        
+        <record id="view_daily_search_form" model="ir.ui.view">
+            <field name="name">project.daily.search.form</field>
+            <field name="model">project.daily</field>
+            <field name="arch" type="xml">
+               <search string="Daily Report">
+                    <field name="project_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Project" name="project" context="{'group_by':'project_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+  	
+  	
+  	
+  	
+     <record id="view_galery_form" model="ir.ui.view">
+            <field name="name">photo.galery.form</field>
+            <field name="model">photo.galery</field>
+            <field name="arch" type="xml">
+                <form string="Galery Photo">
+                <sheet>
+                	<group>
+                    <field name="name" default_focus="1" style="width: 30%%"/>
+        			<field name="image" widget='image' height="200" width="320"  />
+        			<field name="descrip"/>
+        			<field name="picture_date"/>
+        			<field name="project_id" />
+        			<field name="task_id" domain="[('project_id', '=', project_id)]"/>
+        			
+        			</group>    
+                </sheet>
+        		</form>
+                
+            </field>
+        </record>
+        
+       <record id="view_galery_tree" model="ir.ui.view">
+            <field name="name">photo.galery.tree</field>
+            <field name="model">photo.galery</field>
+            <field name="arch" type="xml">
+                <tree string="Galery Photo">
+	                <field name="name"/>
+	                <field name="descrip"/>
+        			<field name="picture_date"/>
+        			<field name="project_id"/>
+        			<field name="task_id" />        
+                </tree>
+            </field>
+        </record>
+        
+  
+        
+       <record id="photo_kanban_view" model="ir.ui.view">
+            <field name="name">Photo</field>
+            <field name="model">photo.galery</field>
+            <field name="arch" type="xml">
+		        <kanban>
+		            <templates>
+		                <t t-name="kanban-box">
+		                    <div class="oe_resource_vignette">
+		                        <div class="oe_resource_image">
+		                            <a type="edit"><img t-att-src="kanban_image('photo.galery', 'image', record.id.value)" class="oe_resource_picture" height="175" width="296"/></a>
+		                        </div>
+		                        <div class="oe_resource_details">
+		                        	<strong><field name="name"/></strong>
+		                            <ul>
+		                               <li>Date :<field name="picture_date"/></li>
+		                               <li>Description :<field name="descrip"/></li>
+		                                                                
+		                             </ul>
+		                        </div>
+		                    </div>                       
+		                </t>
+		            </templates>
+		        </kanban>
+		    </field>
+	</record>
+        
+        <record model="ir.ui.view" id="project_designation_form_view">
+            <field name="name">Designation</field>
+            <field name="model">project.designation</field>
+            <field name="arch" type="xml">
+                <form string="Designation">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="project_designation_action" model="ir.actions.act_window">
+            <field name="name">Designation</field>
+            <field name="res_model">project.designation</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new Designation.
+              </p>
+            </field>
+        </record>
+        <!--menuitem action="project_designation_action" id="menu_project_designation_act"
+                  parent="menu_management_construction"
+                  sequence="3"/-->  
+    
+        
+        <record model="ir.actions.act_window" id="action_galery">
+	    	<field name="name">Photo Galery</field>
+	    	<field name="res_model">photo.galery</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">kanban,tree,form</field>
+		</record>
+		
+		<record model="ir.actions.act_window" id="action_daily">
+	    	<field name="name">Daily Report</field>
+	    	<field name="res_model">project.daily</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+	    	<field name="context">{'search_default_project': 1}</field>
+		</record>
+		
+		<menuitem id="menu_management_construction" name="Management Construction"
+            parent="project.menu_main_pm" sequence="98"/>   
+		
+		<menuitem id="menu_project_daily_report"
+            name="Daily Report"
+            action="action_daily"
+            parent="menu_management_construction"
+            sequence="1"/> 
+		
+       <menuitem id="menu_project_galery_report"
+            name="Photo Galeries"
+            action="action_galery"
+            parent="menu_management_construction"
+            sequence="2"/>
+        
+      <menuitem id="menu_project_designation"
+            name="Designation"
+            action="project_designation_action"
+            parent="menu_management_construction"
+            sequence="3"/> 	 	
+		
+		
+
+					
+  </data>
+</openerp>

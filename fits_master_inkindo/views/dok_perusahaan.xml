@@ -1,0 +1,108 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_akteper_form" model="ir.ui.view">
+            <field name="name">akteper.form</field>
+            <field name="model">akte.perusahaan</field>
+            <field name="arch" type="xml">
+                <form string="Akte Perusahaan Form">
+                  <sheet>
+                      <group>
+                          <field name="company_id"/>
+                          <field name="nama_notaris"/>
+                          <field name="no_notaris"/>
+                          <field name="tgl_notaris"/>
+                          <field name="pendaf_pn"/>
+                          <field name="no_pn"/>
+                          <field name="tgl_pn"/>
+                          <field name="no_pengesahan"/>
+                          <field name="tgl_pengesahan"/>
+                          <field name="jenis_akte"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_akteper_tree" model="ir.ui.view">
+            <field name="name">akteper.tree</field>
+            <field name="model">akte.perusahaan</field>
+            <field name="arch" type="xml">
+                <tree string="Akte Perusahaan Tree" create='false'>
+                  <field name="company_id"/>
+                  <field name="nama_notaris"/>
+                  <field name="no_notaris"/>
+                  <field name="tgl_notaris"/>
+                  <field name="pendaf_pn"/>
+                  <field name="no_pn"/>
+                  <field name="tgl_pn"/>
+                  <field name="no_pengesahan"/>
+                  <field name="tgl_pengesahan"/>
+                  <field name="jenis_akte"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_akteper">
+        <field name="name">AKTE PERUSAHAAN</field>
+        <field name="res_model">akte.perusahaan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <menuitem id="dokumen" parent="inkindo" sequence="9" name="DOKUMEN"/>
+      <menuitem id="akteper" parent="dokumen" sequence="1" action="action_akteper"/>
+
+      <record id="view_dokper_form" model="ir.ui.view">
+            <field name="name">dokper.form</field>
+            <field name="model">dokumen.perusahaan</field>
+            <field name="arch" type="xml">
+                <form string="Dokumen Perusahaan Form">
+                  <sheet>
+                      <group>
+                          <field name="company_id"/>
+                          <field name="name"/>
+                          <field name="no_dokumen"/>
+                          <field name="start_date"/>
+                          <field name="end_date"/>
+                          <field name="category"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_dokper_tree" model="ir.ui.view">
+            <field name="name">dokper.tree</field>
+            <field name="model">dokumen.perusahaan</field>
+            <field name="arch" type="xml">
+                <tree string="Dokumen Perusahaan Tree" create='false'>
+                  <field name="company_id"/>
+                  <field name="name"/>
+                  <field name="no_dokumen"/>
+                  <field name="start_date"/>
+                  <field name="end_date"/>
+                  <field name="category"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_dokper">
+        <field name="name">DOKUMEN PERUSAHAAN</field>
+        <field name="res_model">dokumen.perusahaan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      
+      <menuitem id="dokper" parent="dokumen" sequence="2" action="action_dokper"/>
+
+    </data>
+</openerp>

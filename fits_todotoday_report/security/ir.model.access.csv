@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_todo_type_manager,todo.today,model_todo_today,project.group_project_manager,1,1,1,1
+access_todo_type_user,todo.today,model_todo_today,project.group_project_user,1,1,1,1
+access_todo_line_type_manager,todo.today.line,model_todo_today_line,project.group_project_manager,1,1,1,1
+access_todo_line_type_user,todo.today.line,model_todo_today_line,project.group_project_user,1,1,1,1
+access_wa_group_todotoday,wa.group.todotoday,model_wa_group_todotoday,,1,1,1,1
+access_log_group_todotoday,log.group.todotoday,model_log_todotoday,,1,1,1,1
+access_fits_wa_template,fits_wa_template,model_fits_wa_template,,1,1,1,1

@@ -1,0 +1,49 @@
+<openerp>
+    <data>
+
+  
+      <record id="view_office_form" model="ir.ui.view">
+            <field name="name">office.form</field>
+            <field name="model">office</field>
+            <field name="arch" type="xml">
+                <form string="Pffice Form">
+                  <sheet>
+                      <group>
+                          <field name="company_id"/>
+                          <field name="name"/>
+                          <field name="category"/>
+                          <field name="addres"/>
+                          <field name="attachment_ids" widget="many2many_binary"/>
+                      </group>
+                  </sheet> 
+                </form>
+            </field>
+      </record>
+        
+      <record id="view_office_tree" model="ir.ui.view">
+            <field name="name">office.tree</field>
+            <field name="model">office</field>
+            <field name="arch" type="xml">
+                <tree string="Office Tree" create='false'>
+                  <field name="company_id"/>
+                  <field name="name"/>
+                  <field name="category"/>
+                  <field name="addres"/>
+                  <field name="attachment_ids" widget="many2many_binary"/>
+                </tree>
+            </field>
+      </record>
+
+
+      <record model="ir.actions.act_window" id="action_office">
+        <field name="name">OFFICE</field>
+        <field name="res_model">office</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+      </record>
+      
+      <!-- <menuitem id="dipa14151617" parent="membership.menu_association" sequence="8" name="DIPA-14-15-16-17"/> -->
+      <menuitem id="office" parent="inkindo" sequence="8" action="action_office"/>
+
+    </data>
+</openerp>

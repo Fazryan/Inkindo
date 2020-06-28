@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>     
+      <record id="template_wa_view_form" model="ir.ui.view">
+          <field name="name">template.wa.view.form</field>
+          <field name="model">fits.wa.template</field>
+          <field name="arch" type="xml">
+              <form string="Templates">
+                    <sheet>
+                    	<group>
+	                        <field name="name"/>
+	                        <field name="type"/>
+	                        <field name="cek_in_out"/>
+	      	          		<field name="isi_pesan"/>
+      	          		</group>
+      	          		<div></div>
+      	          		<p colspan="2" class="oe_grey">
+	                    	    You can make message with string :<br/>
+	                        	{name employee}  for  Employee Name<br/>
+	                    		{check in}  	 for  Check In Employee<br/>
+	                    		{site office}    for  Site Office<br/>
+	                    		{location}       for  Location Cekin Employee<br/>
+	                    		{ip}     		 for  IP Employee<br/>
+	                    		{check out}      for  Check Out Employee<br/>
+	                    		{duration}       for  Duration Attendance<br/>
+                    	</p>
+                    </sheet>
+                </form>
+      	  </field>
+      </record>
+
+      <record id="fits_wa_template_view_tree" model="ir.ui.view">
+          <field name="name">fits_wa.template.view.tree</field>
+          <field name="model">fits.wa.template</field>
+          <field name="arch" type="xml">
+      	      <tree>
+      	          <field name="name"/>
+      	          <field name="type"/>
+      	          <field name="isi_pesan"/>
+      	      </tree>
+      	  </field>
+      </record>
+
+      <record id="fits_wa_template_action" model="ir.actions.act_window">
+          <field name="name">WahatsApp Templates</field>
+          <field name="res_model">fits.wa.template</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">tree,form</field>
+          <field name="help" type="html">
+      	      <p class="oe_view_nocontent_create">Create an WhatsApp template</p>
+      	  </field>
+      </record>
+      
+      <menuitem id="fits_wa_template_menu" name="Template WhatsApp"  action="fits_wa_template_action"
+            parent="add_todo_today" 
+            sequence="3" groups="hr.group_hr_manager"/>
+        
+  </data>
+</openerp>

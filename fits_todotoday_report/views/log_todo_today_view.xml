@@ -1,0 +1,75 @@
+<openerp>
+    <data>
+       <record id="view_log_todo_form" model="ir.ui.view">
+            <field name="name">log.todo.view.form</field>
+            <field name="model">log.todotoday</field>
+            <field name="arch" type="xml">
+                <form string="Log To do Today">
+               	<header>
+                  	<field name="state" clickable="1" widget="statusbar" statusbar_visible="sent,fail"/>
+                </header>
+                  <sheet>
+                  	<group>
+                      <group>
+                      	<field name="group_name"/>
+                        <field name="number_admin"/>
+                        <field name="user_id"/>
+                        <field name="date_report"/>
+                        <field name="type_api"/>
+                       </group>
+                       <group>
+                         <field name="status_report"/>
+                         <field name="project_id"/>
+                         <field name="task_id"/>
+                       </group>
+                      </group>
+                      <notebook>
+                         <page string="Message">
+                            <field name="message" nolabel="1"/>    
+                         		
+                        </page>
+                        <page string="Attachments">
+                        	<field name="attachment_ids" nolabel="1"/>  
+                        </page>
+                        <page string="Response WhatsApp">
+                        	<field name="response" nolabel="1"/>  
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+         <record id="view_log_todo_tree" model="ir.ui.view">
+            <field name="name">log.todo.view.tree</field>
+            <field name="model">log.todotoday</field>
+            <field name="arch" type="xml">
+                <tree string="Log To do Today" decoration-info="state=='sent'" decoration-danger="state=='fail'">
+                	   <field name="user_id"/>
+                       <field name="project_id"/>
+                       <field name="task_id"/>
+                       <field name="attachment_ids"/>
+                       <field name="date_report"/>
+                       <field name="status_report"/>
+                       <field name="state"/>
+                  	   <field name="type_api"/>
+                </tree>
+            </field>
+      </record>
+        
+        
+       <record model="ir.actions.act_window" id="action_log_todo">
+	    	<field name="name">Log To do Today</field>
+	    	<field name="res_model">log.todotoday</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id="menu_todo_today_log"
+            name="Log To do Today"  
+            action="action_log_todo"
+            parent="add_todo_today" 
+            sequence="3" groups="hr.group_hr_manager"/> 	
+        
+    </data>
+</openerp>

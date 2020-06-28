@@ -1,0 +1,64 @@
+<openerp>
+    <data>
+       <record id="view_log_wa_form" model="ir.ui.view">
+            <field name="name">log.wa.view.form</field>
+            <field name="model">log.wa</field>
+            <field name="arch" type="xml">
+                <form string="Log WhatsApp">
+               	<header>
+                  	<field name="state" clickable="1" widget="statusbar" statusbar_visible="sent,fail"/>
+                </header>
+                  <sheet>
+                  	<group>
+                      <group>
+                      	<field name="group_name"/>
+                        <field name="number_admin"/>
+                        <field name="date_report"/>
+                        <field name="type_api"/>
+                        <field name="type_send"/>
+                       </group>
+                       <group>
+                       </group>
+                      </group>
+                      <notebook>
+                         <page string="Message">
+                            <field name="message" nolabel="1"/>
+                        </page>
+                        <page string="Response WhatsApp">
+                        	<field name="response" nolabel="1"/>  
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+         <record id="view_log_wa_tree" model="ir.ui.view">
+            <field name="name">log.wa.view.tree</field>
+            <field name="model">log.wa</field>
+            <field name="arch" type="xml">
+                <tree string="Log WhatsApp" decoration-info="state=='sent'" decoration-danger="state=='fail'">
+                       <field name="date_report"/>
+                       <field name="state"/>
+                       <field name="type_api"/>
+                       <field name="type_send"/>
+                </tree>
+            </field>
+      </record>
+        
+        
+       <record model="ir.actions.act_window" id="action_log_wa">
+	    	<field name="name">Log WhatsApp</field>
+	    	<field name="res_model">log.wa</field>
+	    	<field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+		</record>
+		
+		<menuitem id="menu_wa_log"
+            name="Log WhatsApp"  
+            action="action_log_wa"
+            parent="whatsapp_menu"
+            sequence="3"/> 	
+        
+    </data>
+</openerp>
